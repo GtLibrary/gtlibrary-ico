@@ -22,13 +22,11 @@ const Header = ({ account, handleLogin, handleLogout }) => {
     <div id="header">
       <div id="link-containers">
         <Link to="/" id="logo">
-          <h1 className="logo-nulshock">SPINBLADE</h1>
-          <img src='spinblade.png' className="spinblade-icon" />
+          <img src='c-coin-logo.png' className="spinblade-icon" />&nbsp;
+          <h1 className="logo-nulshock">Culture Coin</h1>
         </Link>
         <div className="navbar-links" id="toggle-navbar-links">
           <a className='font-nulshock cursorPointer fs-18 ml-30 link active'>Presale</a>
-          <a className='font-nulshock fs-18 ml-30 font-dark link'>Vesting<span> (coming soon)</span></a>
-          <a className='font-nulshock fs-18 ml-30 font-dark link'>Staking<span> (coming soon)</span></a>
           {/* <a className={selectedTab === 1 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer link fs-18 ml-30'} onClick={() => handleSelectTab(1)}>Presale</a>
           <a className={selectedTab === 2 ? 'font-nulshock cursorPointer link fs-18 ml-30 font-dark active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => handleSelectTab(2)}>Vesting<span> (coming soon)</span></a>
           <a className={selectedTab === 3 ? 'font-nulshock cursorPointer link fs-18 ml-30 font-dark active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => handleSelectTab(3)}>Staking<span> (coming soon)</span></a> */}
@@ -37,19 +35,19 @@ const Header = ({ account, handleLogin, handleLogout }) => {
       <div className="right-header">
         <div className="right-header-icon-flex">
           <div className="sbc-title ml-50">
-            <img src="sbc.png" width={35} height={35} />
+            <img src="c-coin-logo.png" width={40} height={40} />
             <div className="ml-5">
-              <p className="sbc-nulshock t-gray fs-14">$SBC</p>
+              <p className="sbc-nulshock t-gray fs-14">$CC</p>
               <p className="font-nulshock t-white fs-18">0</p>
             </div>
           </div>
-          <div className="bolt-title ml-50">
+          {/* <div className="bolt-title ml-50">
             <img src="bolt.png" width={35} height={35} />
             <div className="ml-5">
               <p className="bolt-nulshock t-gray fs-14">$BOLT</p>
               <p className="font-nulshock t-white fs-18">0</p>
             </div>
-          </div>
+          </div> */}
         </div>
         <div className="right-header-toggle-flex">
           <div className='font-nulshock t-white link ml-50'>

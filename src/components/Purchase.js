@@ -83,14 +83,14 @@ const Purchase = ({ promiseData, leftDays, approve_USDC, buy_SBC }) => {
                         <p>Balance: {promiseData[9]}</p>
                     </div>
                     <div className="usdc-container">
-                        <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={fromAmount > 0 ? fromAmount : ''} onChange={(e) => { setToAmount(e.target.value * 80); setFromAmount(e.target.value); }} />
+                        <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={fromAmount > 0 ? fromAmount : ''} onChange={(e) => { setToAmount(e.target.value * 4); setFromAmount(e.target.value); }} />
                         <div className="max-button-section">
-                            <button className="max-button" onClick={() => {setFromAmount(Number(promiseData[9])); setToAmount(Number(promiseData[9]) * 80);}}>
+                            <button className="max-button" onClick={() => {setFromAmount(Number(promiseData[9])); setToAmount(Number(promiseData[9]) * 4);}}>
                                 MAX
                             </button>
                             <div className="usdc-section font-non-nulshock t-grey3 fs-25">
-                                <img className="usdc-img ml-20" src="usdc.png" />
-                                <p className="usdc-letter ml-20">USDC</p>
+                                <img className="usdc-img ml-20" src="avax.png" />
+                                <p className="usdc-letter ml-20">AVAX</p>
                             </div>
                         </div>
                     </div>
@@ -104,17 +104,17 @@ const Purchase = ({ promiseData, leftDays, approve_USDC, buy_SBC }) => {
                         <p>Available: {promiseData[5]}</p>
                     </div>
                     <div className="sbc-container">
-                        <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={toAmount > 0 ? toAmount : ''} onChange={(e) => { setFromAmount(e.target.value / 80); setToAmount(e.target.value); }} />
+                        <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={toAmount > 0 ? toAmount : ''} onChange={(e) => { setFromAmount(e.target.value / 4); setToAmount(e.target.value); }} />
                         <div className="sbc-section font-non-nulshock t-grey3 fs-25">
-                            <img className="sbc-img" src="sbc.png" />
-                            <p className="sbc-letter ml-20">SBC</p>
+                            <img className="sbc-img" src="c-coin-logo.png" />
+                            <p className="sbc-letter ml-20">CC</p>
                         </div>
                     </div>
                 </div>
                 <div className="sbc-price-section font-non-nulshock t-grey2 fs-20">
                     <p>Price</p>
                     <div className="sbc-price-title">
-                        {rate == 0 ? <p>80.00 SBC per USDC</p> : <p>0.0125 USDC per SBC</p>}
+                        {rate == 0 ? <p>80.00 CC per AVAX</p> : <p>0.0125 AVAX per CC</p>}
                         <img className="two-direction-img ml-5" src="two-direction.png" onClick={() => {if (rate == 1) setRate(0); else setRate(1);}} />
                     </div>
                 </div>
@@ -127,7 +127,7 @@ const Purchase = ({ promiseData, leftDays, approve_USDC, buy_SBC }) => {
                         Enter an amount
                     </button> : (fromAmount < 250 ? 
                     <button className="min-price-button font-non-nulshock fs-30">
-                        Min. Purchase is $250.00 USDC
+                        Min. Purchase is $250.00 AVAX
                     </button> : (Number(promiseData[10]) >= 250 && Number(promiseData[10]) >= fromAmount ? 
                     <button className="big-order-button font-non-nulshock fs-30" onClick={clickBuy}>
                         Complete Order
