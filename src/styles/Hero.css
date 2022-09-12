@@ -129,7 +129,7 @@ a.font-dark {
   height: 40px;
 }
 .logo-nulshock {
-  font-family: Cinderela;
+  font-family: Gabriola;
   font-style: normal;
   font-weight: 500;
   font-size: 32px;
@@ -858,7 +858,6 @@ a.font-dark {
     font-size: 22px;
   }
 }
-
 
 #snackbar {
   visibility: hidden;
