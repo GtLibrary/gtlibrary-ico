@@ -6,9 +6,9 @@ import BigNumber from "bignumber.js";
 
 
 const Purchase = ({ promiseData, leftDays, approve_USDC, buy_SBC }) => {
-    const [fromAmount, setFromAmount] = useState(0);
-    const [toAmount, setToAmount] = useState(0);
-    const [rate, setRate] = useState(0);
+    const [fromAmount, setFromAmount] = useState(null);
+    const [toAmount, setToAmount] = useState(null);
+    const [rate, setRate] = useState(0.0);
 
     const bigAmount = new BigNumber(fromAmount).multipliedBy(10 ** 6).toFixed(4);
 
@@ -33,7 +33,7 @@ const Purchase = ({ promiseData, leftDays, approve_USDC, buy_SBC }) => {
     //                 NotificationManager.success('Purchased SBC tokens');
     //                 break;
     //             case 'warning1':
-    //                 NotificationManager.warning('Min purchase price is 250 USDC');
+    //                 NotificationManager.warning('Min purchase price is 1 USDC');
     //                 break;
     //             case 'warning2':
     //                 NotificationManager.warning('Insufficient balance');
@@ -83,7 +83,7 @@ const Purchase = ({ promiseData, leftDays, approve_USDC, buy_SBC }) => {
                         <p>Balance: {promiseData[9]}</p>
                     </div>
                     <div className="usdc-container">
-                        <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={fromAmount > 0 ? fromAmount : ''} onChange={(e) => { setToAmount(e.target.value * 4); setFromAmount(e.target.value); }} />
+                        <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={fromAmount} onChange={(e) => { setToAmount(e.target.value * 4); setFromAmount(e.target.value); }} />
                         <div className="max-button-section">
                             <button className="max-button" onClick={() => {setFromAmount(Number(promiseData[9])); setToAmount(Number(promiseData[9]) * 4);}}>
                                 MAX
@@ -104,7 +104,7 @@ const Purchase = ({ promiseData, leftDays, approve_USDC, buy_SBC }) => {
                         <p>Available: {promiseData[5]}</p>
                     </div>
                     <div className="sbc-container">
-                        <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={toAmount > 0 ? toAmount : ''} onChange={(e) => { setFromAmount(e.target.value / 4); setToAmount(e.target.value); }} />
+                        <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={toAmount} onChange={(e) => { setFromAmount(e.target.value / 4); setToAmount(e.target.value); }} />
                         <div className="sbc-section font-non-nulshock t-grey3 fs-25">
                             <img className="sbc-img" src="c-coin-logo.png" />
                             <p className="sbc-letter ml-20">CC</p>
@@ -119,16 +119,16 @@ const Purchase = ({ promiseData, leftDays, approve_USDC, buy_SBC }) => {
                     </div>
                 </div>
                 <div>
-                    {fromAmount > Number(promiseData[9]) ? 
+                    {fromAmount > 1 ? 
                     <button className="insufficient-button font-non-nulshock fs-30">
                         Insufficient balance
                     </button> : (fromAmount <= 0 ? 
                     <button className="amount-button font-non-nulshock fs-30">
                         Enter an amount
-                    </button> : (fromAmount < 250 ? 
+                    </button> : (fromAmount < 1 ? 
                     <button className="min-price-button font-non-nulshock fs-30">
-                        Min. Purchase is $250.00 AVAX
-                    </button> : (Number(promiseData[10]) >= 250 && Number(promiseData[10]) >= fromAmount ? 
+                        Min. Purchase is 1.00 AVAX
+                    </button> : (Number(promiseData[10]) >= 1 && Number(promiseData[10]) >= fromAmount ? 
                     <button className="big-order-button font-non-nulshock fs-30" onClick={clickBuy}>
                         Complete Order
                     </button> : 

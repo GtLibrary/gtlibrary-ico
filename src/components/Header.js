@@ -2,7 +2,7 @@ import react, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
 
-const Header = ({ account, handleLogin, handleLogout }) => {
+const Header = ({ account, handleLogin, handleLogout, copyToClipBoard }) => {
   const [selectedTab, setSelectedTab] = useState(1)
 
   const handleSelectTab = (value) => {
@@ -56,16 +56,20 @@ const Header = ({ account, handleLogin, handleLogout }) => {
                 Connect Wallet
               </button> :
               <div className="right-header-wallet-flex">
-                <div className="cursorPointer" onClick={handleLogout}>
+                <div className="cursorPointer" onClick={() => {
+                      navigator.clipboard.writeText(account)
+                      copyToClipBoard()
+                  }}>
                   <p>{account.slice(0, 6) + "..." + account.slice(-4)}</p>
                   <div className="right-header-connected-flex">
                     <img src='Ellipse.png' width={13} height={11} />
                     <p className="bolt-nulshock t-gray fs-12 ml-15">connected</p>
                   </div>
                 </div>
-                <div className="ml-10 pt-5">
+                <div className="ml-10 pt-5" onClick={handleLogout}>
                   <img src="wallet-icon.png" />
                 </div>
+                <span id="snackbar">Copied</span>
               </div>
             }
           </div>

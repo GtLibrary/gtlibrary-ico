@@ -34,68 +34,76 @@ const Home = () => {
   const [presaleStart, setPresaleStart] = useState(0);
   const [isEnded, setIsEnded] = useState(false);
   const [promiseData, setPromiseData] = useState([]);
-
+  
   const handleLogin = () => {
-    isConfirm = true;
-    localStorage.setItem("accountStatus", "1");
-    return activate(injected);
+      isConfirm = true
+      localStorage.setItem("accountStatus", "1");
+      return activate(injected)
   }
 
   const handleLogout = () => {
-    isConfirm = false
-    localStorage.removeItem("accountStatus")
-    deactivate()
+      isConfirm = false
+      localStorage.removeItem("accountStatus")
+      deactivate()
+  }
+
+  function copyToClipBoard() {
+      var x = document.getElementById("snackbar");
+      x.className = "show";
+      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
   }
 
   useEffect(() => {
-    if(account)
-      NotificationManager.success('Successfully Connected to Metamask');
-    else 
-      NotificationManager.success('Successfully Disconnected');
+    
+      if(account)
+        NotificationManager.success('Successfully Connected to Metamask');
+      else 
+        NotificationManager.success('Successfully Disconnected');
 
-    if (!chainId && isConfirm) {
-        const { ethereum } = window;
-        (async () => {
-            try {
-                await ethereum.request({
-                    method: "wallet_switchEthereumChain",
-                    params: [{ chainId: "0x13881" }],
-                });
-            } catch (switchError) {
-                if (switchError.code === 4902) {
-                    try {
-                        await ethereum.request({
-                            method: "wallet_addEthereumChain",
-                            params: [
-                                {
-                                    chainId: "0x13881",
-                                    chainName: "Mumbai",
-                                    nativeCurrency: {
-                                        name: "MATIC",
-                                        symbol: "MATIC",
-                                        decimals: 18,
-                                    },
-                                    rpcUrls: ["https://matic-mumbai.chainstacklabs.com"],
-                                    blockExplorerUrls: ["https://polygonscan.com/"],
-                                },
-                            ],
-                        });
-                    } catch (addError) {
-                        console.error(addError);
-                    }
-                }
-            }
-            activate(injected);
-        })();
-        isConfirm = false;
-    }
-  }, [account, error]);
+      if (!chainId && isConfirm) {
+          const { ethereum } = window;
+          (async () => {
+              try {
+                  await ethereum.request({
+                      method: "wallet_switchEthereumChain",
+                      params: [{ chainId: "0xA869" }],
+                  });
+              } catch (switchError) {
+                  if (switchError.code === 4902) {
+                      try {
+                          await ethereum.request({
+                              method: "wallet_addEthereumChain",
+                              params: [
+                                  {
+                                      chainId: "0xA869",
+                                      chainName: "Avalanche Testnet C-Chain",
+                                      nativeCurrency: {
+                                          name: "Avalanche",
+                                          symbol: "AVAX",
+                                          decimals: 18,
+                                      },
+                                      rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
+                                      blockExplorerUrls: ["https://testnet.snowtrace.io/"],
+                                  },
+                              ],
+                          });
+                      } catch (addError) {
+                          console.error(addError);
+                      }
+                  }
+              }
+              activate(injected);
+          })();
+          isConfirm = false;
+      }
+  }, [account, error, active, chainId, activate ]);
+
 
   useEffect(() => {
       if (!active && localStorage.getItem("accountStatus")) {
           activate(injected);
       }
-  }, []);
+  }, [ active, activate])
 
   const add_whitelist = async () => {
     const { ethereum } = window;
@@ -246,7 +254,7 @@ const Home = () => {
 
   return (
     <div id="home">
-      <Hero account={account} handleLogin={handleLogin} handleLogout={handleLogout} />
+      <Hero account={account} handleLogin={handleLogin} handleLogout={handleLogout} copyToClipBoard={copyToClipBoard} />
       <div className="container-flex marginAuto">
           <LeftSideBar account={account} promiseData={promiseData} presaleStart={presaleStart} isEnded={isEnded} />
           <RightSideBar account={account} promiseData={promiseData} presaleStart={presaleStart} isEnded={isEnded} add_whitelist={add_whitelist} approve_USDC={approve_USDC} buy_SBC={buy_SBC} />
