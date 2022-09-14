@@ -3,12 +3,8 @@ import ReactDOM from "react-dom";
 import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./pages/Home";
 import { Web3ReactProvider } from "@web3-react/core";
 import { Web3Provider } from "@ethersproject/providers";
-//dapp
-import { DAppProvider } from "@usedapp/core";
 
 
 function getLibrary(provider) {
@@ -20,11 +16,7 @@ function getLibrary(provider) {
 ReactDOM.render(
   <React.StrictMode>
     <Web3ReactProvider getLibrary={getLibrary}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<DAppProvider config={{}}><Home /></DAppProvider>} />
-        </Routes>
-      </BrowserRouter>,
+      <App />
     </Web3ReactProvider>
   </React.StrictMode>,
   document.getElementById("root")

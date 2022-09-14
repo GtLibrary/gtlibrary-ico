@@ -1,12 +1,13 @@
-import react, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 
 
 const Header = ({ account, handleLogin, handleLogout, copyToClipBoard }) => {
   const [selectedTab, setSelectedTab] = useState(1)
-
+  const navigate = useNavigate();
+  
   const handleSelectTab = (value) => {
-    setSelectedTab(value)
+    setSelectedTab(value);
   }
 
   const toggleMenu = () => {
@@ -22,20 +23,20 @@ const Header = ({ account, handleLogin, handleLogout, copyToClipBoard }) => {
     <div id="header">
       <div id="link-containers">
         <Link to="/" id="logo">
-          <img src='c-coin-logo.png' className="spinblade-icon" />&nbsp;
+          <img alt='logo' src='c-coin-logo.png' className="spinblade-icon" />&nbsp;
           <h1 className="logo-nulshock">Culture Coin</h1>
         </Link>
         <div className="navbar-links" id="toggle-navbar-links">
-          <a className='font-nulshock cursorPointer fs-18 ml-30 link active'>Presale</a>
-          {/* <a className={selectedTab === 1 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer link fs-18 ml-30'} onClick={() => handleSelectTab(1)}>Presale</a>
-          <a className={selectedTab === 2 ? 'font-nulshock cursorPointer link fs-18 ml-30 font-dark active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => handleSelectTab(2)}>Vesting<span> (coming soon)</span></a>
-          <a className={selectedTab === 3 ? 'font-nulshock cursorPointer link fs-18 ml-30 font-dark active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => handleSelectTab(3)}>Staking<span> (coming soon)</span></a> */}
+          {/* <a className='font-nulshock cursorPointer fs-18 ml-30 link active'>Presale</a> */}
+          <a className={selectedTab === 1 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer link fs-18 font-dark ml-30'} onClick={() => {handleSelectTab(1); navigate('/')}}>Presale</a>
+          <a className={selectedTab === 2 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => {handleSelectTab(2); navigate('/swap')}}>Swap</a>
+          {/* <a className={selectedTab === 3 ? 'font-nulshock cursorPointer link fs-18 ml-30 font-dark active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => handleSelectTab(3)}>Staking<span> (coming soon)</span></a> */}
         </div>
       </div>
       <div className="right-header">
         <div className="right-header-icon-flex">
           <div className="sbc-title ml-50">
-            <img src="c-coin-logo.png" width={40} height={40} />
+            <img alt='logo' src="c-coin-logo.png" width={40} height={40} />
             <div className="ml-5">
               <p className="sbc-nulshock t-gray fs-14">$CC</p>
               <p className="font-nulshock t-white fs-18">0</p>
@@ -62,12 +63,12 @@ const Header = ({ account, handleLogin, handleLogout, copyToClipBoard }) => {
                   }}>
                   <p>{account.slice(0, 6) + "..." + account.slice(-4)}</p>
                   <div className="right-header-connected-flex">
-                    <img src='Ellipse.png' width={13} height={11} />
+                    <img alt='logo' src='Ellipse.png' width={13} height={11} />
                     <p className="bolt-nulshock t-gray fs-12 ml-15">connected</p>
                   </div>
                 </div>
                 <div className="ml-10 pt-5" onClick={handleLogout}>
-                  <img src="wallet-icon.png" />
+                  <img alt='logo' src="wallet-icon.png" />
                 </div>
                 <span id="snackbar">Copied</span>
               </div>

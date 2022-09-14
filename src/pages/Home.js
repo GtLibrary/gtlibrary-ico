@@ -1,18 +1,14 @@
-import react, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import usdc_abi from "../utils/USDCabi.json";
 import sbc_abi from "../utils/SBCabi.json";
 import presale_abi from "../utils/PRESALEabi.json";
 import vesting_abi from "../utils/VESTINGabi.json";
-import Hero from "../components/Hero";
 import LeftSideBar from "../components/LeftSideBar";
 import RightSideBar from "../components/RightSideBar";
 import "../styles/Home.css";
-import "../styles/Hero.css";
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
-import { injected } from "./connector";
-import { NotificationContainer, NotificationManager } from "react-notifications";
 import 'react-notifications/lib/notifications.css';
 
 
@@ -26,84 +22,14 @@ let SBCPortal;
 let PresalePortal;
 let VestingPortal;
 
-let isConfirm = false;
 
 const Home = () => {
-  const { account, activate, deactivate, error, active, chainId } = useWeb3React();
+  const { account } = useWeb3React();
   const [amount, setAmount] = useState("");
   const [presaleStart, setPresaleStart] = useState(0);
   const [isEnded, setIsEnded] = useState(false);
   const [promiseData, setPromiseData] = useState([]);
   
-  const handleLogin = () => {
-      isConfirm = true
-      localStorage.setItem("accountStatus", "1");
-      return activate(injected)
-  }
-
-  const handleLogout = () => {
-      isConfirm = false
-      localStorage.removeItem("accountStatus")
-      deactivate()
-  }
-
-  function copyToClipBoard() {
-      var x = document.getElementById("snackbar");
-      x.className = "show";
-      setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
-  }
-
-  useEffect(() => {
-    
-      if(account)
-        NotificationManager.success('Successfully Connected to Metamask');
-      else 
-        NotificationManager.success('Successfully Disconnected');
-
-      if (!chainId && isConfirm) {
-          const { ethereum } = window;
-          (async () => {
-              try {
-                  await ethereum.request({
-                      method: "wallet_switchEthereumChain",
-                      params: [{ chainId: "0xA869" }],
-                  });
-              } catch (switchError) {
-                  if (switchError.code === 4902) {
-                      try {
-                          await ethereum.request({
-                              method: "wallet_addEthereumChain",
-                              params: [
-                                  {
-                                      chainId: "0xA869",
-                                      chainName: "Avalanche Testnet C-Chain",
-                                      nativeCurrency: {
-                                          name: "Avalanche",
-                                          symbol: "AVAX",
-                                          decimals: 18,
-                                      },
-                                      rpcUrls: ["https://api.avax-test.network/ext/bc/C/rpc"],
-                                      blockExplorerUrls: ["https://testnet.snowtrace.io/"],
-                                  },
-                              ],
-                          });
-                      } catch (addError) {
-                          console.error(addError);
-                      }
-                  }
-              }
-              activate(injected);
-          })();
-          isConfirm = false;
-      }
-  }, [account, error, active, chainId, activate ]);
-
-
-  useEffect(() => {
-      if (!active && localStorage.getItem("accountStatus")) {
-          activate(injected);
-      }
-  }, [ active, activate])
 
   const add_whitelist = async () => {
     const { ethereum } = window;
@@ -123,7 +49,7 @@ const Home = () => {
     }
   }
 
-  const approve_USDC = async (amount) => {
+  const approve_AVAX = async (amount) => {
     const { ethereum } = window;
 
     if (ethereum) {
@@ -143,7 +69,7 @@ const Home = () => {
     }
   }
 
-  const buy_SBC = async (amount) => {
+  const buy_CCOIN = async (amount) => {
     const { ethereum } = window;
 
     if (ethereum) {
@@ -159,7 +85,7 @@ const Home = () => {
     }
   }
 
-  const withdraw_SBC = async () => {
+  const withdraw_CCOIN = async () => {
     const { ethereum } = window;
 
     if (ethereum) {
@@ -190,11 +116,14 @@ const Home = () => {
     }
   }
 
-  useEffect(async () => {
-    const { ethereum } = window;
-    if (ethereum) {
-      await getContractData();
+  useEffect(() => {
+    async function contractdata() {
+      const { ethereum } = window;
+      if (ethereum) {
+        await getContractData();
+      }
     }
+    contractdata();
   }, [account]);
 
   const getContractData = async () => {
@@ -254,12 +183,10 @@ const Home = () => {
 
   return (
     <div id="home">
-      <Hero account={account} handleLogin={handleLogin} handleLogout={handleLogout} copyToClipBoard={copyToClipBoard} />
       <div className="container-flex marginAuto">
           <LeftSideBar account={account} promiseData={promiseData} presaleStart={presaleStart} isEnded={isEnded} />
-          <RightSideBar account={account} promiseData={promiseData} presaleStart={presaleStart} isEnded={isEnded} add_whitelist={add_whitelist} approve_USDC={approve_USDC} buy_SBC={buy_SBC} />
+          <RightSideBar account={account} promiseData={promiseData} presaleStart={presaleStart} isEnded={isEnded} add_whitelist={add_whitelist} approve_AVAX={approve_AVAX} buy_CCOIN={buy_CCOIN} />
       </div>
-      <NotificationContainer />
     </div>
   );
 };

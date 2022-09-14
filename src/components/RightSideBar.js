@@ -9,7 +9,7 @@ const endTime = "";
 const startTimeStamp = 0;
 const endTimeStame = 1656086400000;
 
-const RightSideBar = ({ account, promiseData, presaleStart, isEnded, add_whitelist, approve_USDC, buy_SBC }) => {
+const RightSideBar = ({ account, promiseData, presaleStart, isEnded, add_whitelist, approve_AVAX, buy_CCOIN }) => {
     const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
     useEffect(() => {
@@ -35,8 +35,8 @@ const RightSideBar = ({ account, promiseData, presaleStart, isEnded, add_whiteli
             {!presaleStart ? <button className="private-button font-nulshock fs-14">PRIVATE</button> : <button className="live-button font-nulshock fs-14">LIVE</button>}
             
             <div className='flex-column alignCenter rightsidebar-content'>
-                <Purchase promiseData={promiseData} leftDays={leftDays} approve_USDC={approve_USDC} buy_SBC={buy_SBC} />
-                {/* {presaleStart && account ? <Purchase promiseData={promiseData} leftDays={leftDays} approve_USDC={approve_USDC} buy_SBC={buy_SBC} /> : <>
+                <Purchase promiseData={promiseData} leftDays={leftDays} approve_AVAX={approve_AVAX} buy_CCOIN={buy_CCOIN} />
+                {/* {presaleStart && account ? <Purchase promiseData={promiseData} leftDays={leftDays} approve_AVAX={approve_AVAX} buy_CCOIN={buy_CCOIN} /> : <>
                     {!account || (account && promiseData[12]) ? 
                     <>
                         <div className="font-nulshock fs-20">

@@ -64,19 +64,6 @@ const Purchase = ({ promiseData, leftDays, approve_AVAX, buy_CCOIN }) => {
     return (
         <>
             <div className="">
-                <div className="calendar-section">
-                    <img src="calendar.png" />
-                    <p className="calendar-title font-non-nulshock fs-20 ml-10">{leftDays()} day(s) left</p>
-                </div>
-                <div className="progress-section font-non-nulshock t-grey2 fs-20">
-                    <div className="progress-title">
-                        <p>Progress</p>
-                        <p>{promiseData[2] == undefined && promiseData[1] == undefined ? "0/0" : Number(promiseData[2]).toLocaleString()+"/"+Number(promiseData[1]).toLocaleString()}</p>
-                    </div>
-                    <div className="mt-10">
-                        <ProgressBar label={promiseData[2] == undefined && promiseData[1] == undefined ? "0%" : (`${progress(Number(promiseData[2]), Number(promiseData[1]))}%`)} now={promiseData[2] == undefined && promiseData[1] == undefined ? 0 : (progress(Number(promiseData[2]), Number(promiseData[1])) < 100 ? progress(Number(promiseData[2]), Number(promiseData[1])) : 100)} className={progress(Number(promiseData[2]), Number(promiseData[1])) < 100 ? "progress1" : "progress2"} />
-                    </div>
-                </div>
                 <div className="from-container">
                     <div className="balance-title font-non-nulshock t-grey2 fs-20">
                         <p>From</p>
