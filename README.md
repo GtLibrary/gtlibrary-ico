@@ -1,1 +1,1 @@
-This is SBC Token presale platform.
+This is culture coin Token presale and swap platform.
