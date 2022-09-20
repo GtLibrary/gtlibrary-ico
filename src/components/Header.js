@@ -35,10 +35,10 @@ const Header = ({ account, handleLogin, handleLogout, copyToClipBoard }) => {
       </div>
       <div className="right-header">
         <div className="right-header-icon-flex">
-          <div className="sbc-title ml-50">
+          <div className="ccoin-title ml-50">
             <img alt='logo' src="c-coin-logo.png" width={40} height={40} />
             <div className="ml-5">
-              <p className="sbc-nulshock t-gray fs-14">$CC</p>
+              <p className="ccoin-nulshock t-gray fs-14">$CC</p>
               <p className="font-nulshock t-white fs-18">0</p>
             </div>
           </div>

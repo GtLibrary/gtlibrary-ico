@@ -9,7 +9,7 @@ const endTime = "";
 const startTimeStamp = 0;
 const endTimeStame = 1656086400000;
 
-const RightSideBar = ({ account, promiseData, presaleStart, isEnded, add_whitelist, approve_AVAX, buy_CCOIN }) => {
+const RightSideBar = ({ account, promiseData, presaleStart, isEnded, approve_AVAX, buy_CCOIN }) => {
     const [currentTime, setCurrentTime] = useState(new Date().getTime());
 
     useEffect(() => {
@@ -21,7 +21,7 @@ const RightSideBar = ({ account, promiseData, presaleStart, isEnded, add_whiteli
     }, [])
 
     const leftDays = () => {
-        const leftDay = (Date.parse(promiseData[4]) - (Date.now() + 3600000)) / 86400000;
+        const leftDay = (Date.parse(promiseData["end_day"]) - (Date.now() + 3600000)) / 86400000;
 
         if (leftDay > 0 && leftDay < 30) {
             return leftDay.toFixed(0);
@@ -35,7 +35,7 @@ const RightSideBar = ({ account, promiseData, presaleStart, isEnded, add_whiteli
             {!presaleStart ? <button className="private-button font-nulshock fs-14">PRIVATE</button> : <button className="live-button font-nulshock fs-14">LIVE</button>}
             
             <div className='flex-column alignCenter rightsidebar-content'>
-                <Purchase promiseData={promiseData} leftDays={leftDays} approve_AVAX={approve_AVAX} buy_CCOIN={buy_CCOIN} />
+                <Purchase promiseData={promiseData} leftDays={leftDays} buy_CCOIN={buy_CCOIN} />
                 {/* {presaleStart && account ? <Purchase promiseData={promiseData} leftDays={leftDays} approve_AVAX={approve_AVAX} buy_CCOIN={buy_CCOIN} /> : <>
                     {!account || (account && promiseData[12]) ? 
                     <>

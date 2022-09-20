@@ -27,13 +27,13 @@ const Purchase = ({ promiseData, leftDays, approve_AVAX, buy_CCOIN }) => {
     //                 NotificationManager.info('Please enter an amount');
     //                 break;
     //             case 'success1':
-    //                 NotificationManager.success('Approved USDC tokens');
+    //                 NotificationManager.success('Approved avax tokens');
     //                 break;
     //             case 'success2':
     //                 NotificationManager.success('Purchased SBC tokens');
     //                 break;
     //             case 'warning1':
-    //                 NotificationManager.warning('Min purchase price is 1 USDC');
+    //                 NotificationManager.warning('Min purchase price is 1 avax');
     //                 break;
     //             case 'warning2':
     //                 NotificationManager.warning('Insufficient balance');
@@ -50,7 +50,7 @@ const Purchase = ({ promiseData, leftDays, approve_AVAX, buy_CCOIN }) => {
     const clickApprove = async () => {
         let approved = await approve_AVAX(Number(bigAmount));
         if (approved) {
-            NotificationManager.success('Approved USDC tokens');
+            NotificationManager.success('Approved AVAX tokens');
         }
     }
 
@@ -69,15 +69,15 @@ const Purchase = ({ promiseData, leftDays, approve_AVAX, buy_CCOIN }) => {
                         <p>From</p>
                         <p>Balance: {promiseData[9]}</p>
                     </div>
-                    <div className="usdc-container">
+                    <div className="avax-container">
                         <input className="input-value-section t-grey2 fs-30" type="number" placeholder="0.0" value={fromAmount} onChange={(e) => { setToAmount(e.target.value * 4); setFromAmount(e.target.value); }} />
                         <div className="max-button-section">
                             <button className="max-button" onClick={() => {setFromAmount(Number(promiseData[9])); setToAmount(Number(promiseData[9]) * 4);}}>
                                 MAX
                             </button>
-                            <div className="usdc-section font-non-nulshock t-grey3 fs-25">
-                                <img className="usdc-img ml-20" src="avax.png" />
-                                <p className="usdc-letter ml-20">AVAX</p>
+                            <div className="avax-section font-non-nulshock t-grey3 fs-25">
+                                <img className="avax-img ml-20" src="avax.png" />
+                                <p className="avax-letter ml-20">AVAX</p>
                             </div>
                         </div>
                     </div>

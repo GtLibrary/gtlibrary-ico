@@ -120,11 +120,11 @@ a.font-dark {
   color: #999797;
 }
 
-.usdc-img {
+.avax-img {
   width: 40px;
   height: 40px;
 }
-.sbc-img {
+.ccoin-img {
   width: 40px;
   height: 40px;
 }
@@ -200,14 +200,14 @@ a.font-dark {
   text-align: left;
 }
 
-.sbc-title,
+.ccoin-title,
 .bolt-title {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-.sbc-nulshock,
+.ccoin-nulshock,
 .bolt-nulshock {
   font-family: SCPRegular !important;
   font-style: normal;
@@ -280,8 +280,8 @@ a.font-dark {
   top: 30px;
   right: 30px;
   background: rgba(186, 189, 8, 0.2);
-  color: #FAFF00;
-  border: 2px solid #FAFF00;
+  color: #ff9d00;
+  border: 2px solid #ff9d00;
   border-radius: 12px;
   padding: 0 20px;
   height: 33px;
@@ -291,9 +291,9 @@ a.font-dark {
   position: absolute;
   top: 30px;
   right: 30px;
-  background: rgba(223, 2, 2, 0.2);
-  color: #FF0000;
-  border: 2px solid #FF0000;
+  background: rgba(127, 223, 2, 0.2);
+  color: #00ff2a;
+  border: 2px solid #00ff11;
   border-radius: 12px;
   padding: 0 20px;
   height: 33px;
@@ -416,7 +416,7 @@ a.font-dark {
   border-radius: 20px;
 }
 
-.usdc-container, .sbc-container {
+.avax-container, .ccoin-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -451,19 +451,19 @@ a.font-dark {
   opacity: 0.8;
 }
 
-.usdc-section, .sbc-section {
+.avax-section, .ccoin-section {
   display: flex;
   justify-content: flex-end;
   align-items: center;
 }
 
-.sbc-price-section, .sbc-price-title {
+.ccoin-price-section, .ccoin-price-title {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.sbc-price-section {
+.ccoin-price-section {
   padding: 20px;
 }
 
@@ -833,16 +833,16 @@ a.font-dark {
     padding: 8px 5px 0 5px; 
   }
 
-  .usdc-container, .sbc-container {
+  .avax-container, .ccoin-container {
     padding: 15px 5px 8px 5px;
   }
 
-  .usdc-img, .usdc-letter, .sbc-letter {
+  .avax-img, .avax-letter, .ccoin-letter {
     margin-left: 5px;
     font-size: 20px;
   }
 
-  .sbc-price-section {
+  .ccoin-price-section {
     padding: 20px 7px;
   }
 

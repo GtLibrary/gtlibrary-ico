@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import usdc_abi from "../utils/USDCabi.json";
-import sbc_abi from "../utils/SBCabi.json";
+import ccoin_abi from "../utils/CCOINabi.json";
 import presale_abi from "../utils/PRESALEabi.json";
 import vesting_abi from "../utils/VESTINGabi.json";
 import LeftSideBar from "../components/LeftSideBar";
@@ -11,14 +10,10 @@ import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 import 'react-notifications/lib/notifications.css';
 
-
-const usdc_addr = "0xcE6a7e77Ae1438B606648a64B30A75777320CDd3";
-const sbc_addr = "0x7397D02ED21f277031811674Af7Ed7B48D554eD7";
-const presale_addr = "0x74BbeB470fCba40ed39dC0EEFe356838EB126B6F";
+const ccoin_addr = "0x18DA08e33B60901929dF1317Ef70C5779899bbEC";
+const presale_addr = "0x6E62c655fab2893e78d2544fb7dcE027bB86D16F";
 const vesting_addr = "0xa193b79D21416F41ccC78d75eB7D296F85f9dBFA";
-const multiSigAdmin_addr = "0x258E881b148469CAF9477E4Ffb1992556Fef3AD9";
-let USDCPortal;
-let SBCPortal;
+let CCOINPortal;
 let PresalePortal;
 let VestingPortal;
 
@@ -29,45 +24,6 @@ const Home = () => {
   const [presaleStart, setPresaleStart] = useState(0);
   const [isEnded, setIsEnded] = useState(false);
   const [promiseData, setPromiseData] = useState([]);
-  
-
-  const add_whitelist = async () => {
-    const { ethereum } = window;
-
-    if (ethereum) {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      PresalePortal = new ethers.Contract(presale_addr, presale_abi, signer);
-
-      let whitelisted = await PresalePortal.addWhitelist();
-      await whitelisted.wait();
-      console.log(whitelisted);
-
-      if (whitelisted) {
-        await getContractData();
-      }
-    }
-  }
-
-  const approve_AVAX = async (amount) => {
-    const { ethereum } = window;
-
-    if (ethereum) {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-
-      USDCPortal = new ethers.Contract(usdc_addr, usdc_abi, signer);
-
-      let approved = await USDCPortal.approve(presale_addr, amount);
-      await approved.wait();
-      console.log(approved);
-
-      if (approved) {
-        await getContractData();
-        return true;
-      }
-    }
-  }
 
   const buy_CCOIN = async (amount) => {
     const { ethereum } = window;
@@ -76,41 +32,8 @@ const Home = () => {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       PresalePortal = new ethers.Contract(presale_addr, presale_abi, signer);
-
-      let bought = await PresalePortal.deposit(amount);
+      let bought = await PresalePortal.buyTokens({value: ethers.utils.parseEther(String(amount))});
       await bought.wait();
-      console.log(bought);
-
-      await getContractData();
-    }
-  }
-
-  const withdraw_CCOIN = async () => {
-    const { ethereum } = window;
-
-    if (ethereum) {
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
-      VestingPortal = new ethers.Contract(vesting_addr, vesting_abi, signer);
-
-      let withdrawable_ = await VestingPortal.getWithdrawable(account);
-      let TGEtime = await VestingPortal.getTGETime();
-
-      let withdrawable = new BigNumber(Number(withdrawable_)).dividedBy(10 ** 18).toFixed(0);
-      if (Number(withdrawable) == 0) {
-        alert("Nothing to withdraw");
-        return;
-      }
-      if ((Date.now() + 3600000 > TGEtime * 1000 + 1800 * 1000 && Date.now() + 3600000 < TGEtime * 1000 + 10800 * 1000) ||
-        (Date.now() + 3600000 > TGEtime * 1000 + 12600 * 1000 && Date.now() + 3600000 < TGEtime * 1000 + 14400 * 1000) ||
-        (Date.now() + 3600000 > TGEtime * 1000 + 16200 * 1000 && Date.now() + 3600000 < TGEtime * 1000 + 18000 * 1000)) {
-        alert("You can't claim at this point");
-        return;
-      }
-
-      let withdrawn = await VestingPortal.withdrawToken();
-      await withdrawn.wait();
-      console.log(withdrawn);
 
       await getContractData();
     }
@@ -132,51 +55,44 @@ const Home = () => {
     if (ethereum) {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
-      USDCPortal = new ethers.Contract(usdc_addr, usdc_abi, signer);
-      SBCPortal = new ethers.Contract(sbc_addr, sbc_abi, signer);
+      CCOINPortal = new ethers.Contract(ccoin_addr, ccoin_abi, signer);
       PresalePortal = new ethers.Contract(presale_addr, presale_abi, signer);
       VestingPortal = new ethers.Contract(vesting_addr, vesting_abi, signer);
 
       const promises = [];
 
-      promises.push(await PresalePortal.recipients(account));
-      promises.push(await PresalePortal.TotalPresaleAmnt());
-      promises.push(await PresalePortal.soldSBCAmount());
-      promises.push(await PresalePortal.startTime());
-      promises.push(await PresalePortal.PERIOD());
-      promises.push(await SBCPortal.balanceOf(account));
-      promises.push(await VestingPortal.getWithdrawable(account));
-      promises.push(await VestingPortal.getTGETime());
-      promises.push(await VestingPortal.getLocked(account));
-      promises.push(await USDCPortal.balanceOf(account));
-      promises.push(await USDCPortal.allowance(account, presale_addr));
-      promises.push(await USDCPortal.balanceOf(multiSigAdmin_addr));
-      promises.push(await PresalePortal.whitelists(account));
+      promises.push(await PresalePortal.getAvaxBal(account)); /// buy available avax amount
+      promises.push(await CCOINPortal.balanceOf(presale_addr)); // saleable token amount
+      promises.push(await PresalePortal.totalsold());  /// sold token amount
+      promises.push(await PresalePortal.START()); // get start time
+      promises.push(await PresalePortal.DAYS());  /// get duration
+      promises.push(await PresalePortal.getCuurentTime()); // get current time
+      promises.push(await PresalePortal.isActive()); // get active flag
+      promises.push(await PresalePortal.tokenprice()); // get token change rate
+      promises.push(await CCOINPortal.totalSupply()); // total supply token amount
+      
 
       let temp = [];
       Promise.all(promises).then(responses => {
         responses.forEach((response, index) => {
           temp.push(response);
         })
-        temp[0] = new BigNumber(Number(temp[0].amountSBC)).dividedBy(10 ** 18).toFixed(0);
-        temp[1] = new BigNumber(Number(temp[1])).dividedBy(10 ** 18).toFixed(0);
-        temp[2] = new BigNumber(Number(temp[2])).dividedBy(10 ** 18).toFixed(0);
+        let promisedata = [];
+        promisedata["avax_val"] = new BigNumber(Number(temp[0])).dividedBy(10 ** 18).toFixed(2);
+        promisedata["remain_token"] = new BigNumber(Number(temp[1])).dividedBy(10 ** 18).toFixed(2);
+        promisedata["sold_token"] = new BigNumber(Number(temp[2])).dividedBy(10 ** 18).toFixed(2);
         let presaleStart_ = temp[3];
-        temp[3] = new Date(presaleStart_ * 1000).toUTCString();
-        let presaleEnd_ = presaleStart_ * 1000 + temp[4] * 1000;
-        temp[4] = new Date(presaleEnd_).toUTCString();
-        temp[5] = new BigNumber(Number(temp[5])).dividedBy(10 ** 18).toFixed(4);
-        temp[6] = new BigNumber(Number(temp[6])).dividedBy(10 ** 18).toFixed(0);
-        temp[7] = new Date(temp[7] * 1000).toUTCString();
-        temp[8] = new BigNumber(Number(temp[8])).dividedBy(10 ** 18).toFixed(0);
-        temp[9] = new BigNumber(Number(temp[9])).dividedBy(10 ** 6).toFixed(4);
-        temp[10] = new BigNumber(Number(temp[10])).dividedBy(10 ** 6).toFixed(0);
-        temp[11] = new BigNumber(Number(temp[11])).dividedBy(10 ** 6).toFixed(0);
-        temp[12] = temp[12];
+        promisedata["start_day"] = new Date(presaleStart_ * 1000).toUTCString();
+        let presaleEnd_ = presaleStart_ * 1000 + temp[4] * 86400 * 1000;
+        promisedata["end_day"] = new Date(presaleEnd_).toUTCString();
+        promisedata["current_time"] = new Date(temp[5] * 1000).toUTCString();
+        promisedata["is_active"] = temp[6];
+        promisedata["token_price"] = new BigNumber(Number(temp[7])).toFixed(0);
+        promisedata["total_supply"] = new BigNumber(Number(temp[8])).dividedBy(10 ** 18).toFixed(0);
 
-        setPromiseData(temp);
+        setPromiseData(promisedata);
         setPresaleStart(Number(presaleStart_));
-        setIsEnded(Number(presaleStart_) > 0 && Date.now() + 3600000 >= presaleEnd_); // Date.now() + 1 hour = real UTC time on blockchain
+        setIsEnded(promisedata["token_price"]); // Date.now() + 1 hour = real UTC time on blockchain
       })
     }
   }
@@ -185,7 +101,7 @@ const Home = () => {
     <div id="home">
       <div className="container-flex marginAuto">
           <LeftSideBar account={account} promiseData={promiseData} presaleStart={presaleStart} isEnded={isEnded} />
-          <RightSideBar account={account} promiseData={promiseData} presaleStart={presaleStart} isEnded={isEnded} add_whitelist={add_whitelist} approve_AVAX={approve_AVAX} buy_CCOIN={buy_CCOIN} />
+          <RightSideBar account={account} promiseData={promiseData} presaleStart={presaleStart} isEnded={isEnded} buy_CCOIN={buy_CCOIN} />
       </div>
     </div>
   );
