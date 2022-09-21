@@ -25,18 +25,13 @@
   font-family: SCPSemibold;
   src: url('../../public/font/SourceCodePro-Semibold.otf');
 }
-#hero {
-  text-align: center;
-  position: relative;
-  background-size: cover;
-  /* width:100%;
-  height: 500px;
-  border: 1px solid cyan;
-  margin-top: 5rem;
-  z-index: 1; */
-}
+
 body {
   font-family: SCPRegular;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.0), rgba(0, 0, 0, 0.7)),
+				url('../../public/ico-background.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 #hero-background {
@@ -62,14 +57,12 @@ body {
 }
 
 #header {
-  height: 77px;
-  /* width: 100%; */
+  height: 80px;
   padding: 10px 50px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  position: fixed;
   z-index: 1;
   top: 0;
   right: 0;
@@ -239,9 +232,14 @@ a.font-dark {
   display: flex;
   justify-content: center;
   width: 70%;
-  margin-top: 220px;
 }
-
+.main-content {
+  height: calc(100vh - 80px);
+}
+.card-content {
+  padding-top: 100px;
+  /* margin-bottom: 50px; */
+}
 .leftsidebar {
   /* background-color: rgba(105, 105, 105, 0.16); */
   font-family: Arial, Helvetica, sans-serif;

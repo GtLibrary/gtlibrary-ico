@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 
 
-const Header = ({ account, handleLogin, handleLogout, copyToClipBoard }) => {
+const Header = ({ account, handleLogin, handleLogout, copyToClipBoard, promiseData }) => {
   const [selectedTab, setSelectedTab] = useState(1)
   const navigate = useNavigate();
   
@@ -39,7 +39,7 @@ const Header = ({ account, handleLogin, handleLogout, copyToClipBoard }) => {
             <img alt='logo' src="c-coin-logo.png" width={40} height={40} />
             <div className="ml-5">
               <p className="ccoin-nulshock t-gray fs-14">$CC</p>
-              <p className="font-nulshock t-white fs-18">0</p>
+              <p className="font-nulshock t-white fs-18">{promiseData["ccoin_token"] ? promiseData["ccoin_token"] : 0}</p>
             </div>
           </div>
           {/* <div className="bolt-title ml-50">

@@ -10,12 +10,15 @@ let isConfirm = false;
 const Hero = props => {
   
   const { account, activate, deactivate, error, active, chainId } = useWeb3React();
-  // const { account, handleLogin, handleLogout, copyToClipBoard } = props;
+  const { promiseData } = props;
   
-  const handleLogin = () => {
+  const handleLogin = async () => {
+    //   const { address, status } = await connectWallet();
+    //   console.log("address => ", address)
+    //   console.log("status  => ", status)
       isConfirm = true
       localStorage.setItem("accountStatus", "1");
-      return activate(injected)
+      activate(injected)
   }
 
   const handleLogout = () => {
@@ -30,12 +33,39 @@ const Hero = props => {
       setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
   }
 
+  const connectWallet = async () => {
+    if (window.ethereum) {
+        try {
+            const addressArray = await window.ethereum.request({
+                method: "eth_requestAccounts",
+            })
+            const obj = {
+                status: "success",
+                address: addressArray[0]
+            };
+            return obj;
+        } catch (err) {
+            return {
+              address: "",
+              status: "😥 " + err.message,
+            };
+        }
+    } else {
+        return {
+            address: "",
+            status: "",
+        };
+    }
+}
+
   useEffect(() => {
     
-      if(account)
-        NotificationManager.success('Successfully Connected to Metamask');
-      else 
-        NotificationManager.success('Successfully Disconnected');
+    //   if(account) {
+    //       NotificationManager.success('Successfully Connected to Metamask');
+    //   }
+    //   else {
+    //       NotificationManager.success('Successfully Disconnected');
+    //   }
 
       if (!chainId && isConfirm) {
           const { ethereum } = window;
@@ -83,10 +113,10 @@ const Hero = props => {
   }, [ active, activate])
 
   return (
-    <div id="hero">
-      <Header account={account} handleLogin={handleLogin} handleLogout={handleLogout} copyToClipBoard={copyToClipBoard} />
-      <NotificationContainer />
-    </div>
+    <>
+      <Header account={account} handleLogin={handleLogin} handleLogout={handleLogout} copyToClipBoard={copyToClipBoard} promiseData={promiseData} />
+      {/* <NotificationContainer /> */}
+    </>
   );
 };
 
