@@ -23,6 +23,7 @@
     "react-notifications": "^1.7.3",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
+    "react-toastify": "^9.0.8",
     "web-vitals": "^2.1.2"
   },
   "scripts": {

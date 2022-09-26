@@ -13,6 +13,8 @@ import { useWeb3React } from "@web3-react/core";
 import { DAppProvider } from "@usedapp/core";
 import "./App.css";
 import LoadingOverlay from "react-loading-overlay";
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const ccoin_addr = "0x18DA08e33B60901929dF1317Ef70C5779899bbEC";
 const presale_addr = "0x6E62c655fab2893e78d2544fb7dcE027bB86D16F";
@@ -24,7 +26,6 @@ let VestingPortal;
 function App() {
   const [loading, setLoading] = useState(true);
   const { account, library } = useWeb3React();
-  const [amount, setAmount] = useState("");
   const [presaleStart, setPresaleStart] = useState(0);
   const [isEnded, setIsEnded] = useState(false);
   const [promiseData, setPromiseData] = useState([]);
@@ -126,10 +127,9 @@ function App() {
             .dividedBy(10 ** 18)
             .toFixed(2);
         }
-
         setPromiseData(promisedata);
         setPresaleStart(Number(presaleStart_));
-        setIsEnded(promisedata["token_price"]);
+        setIsEnded(!promisedata["is_active"]);
       });
     }
     setLoading(false);
@@ -151,7 +151,7 @@ function App() {
                 marginTop:"30%",
               }),
             }}
-            fadeSpeed = "9000"
+            fadeSpeed = {9000}
           ></LoadingOverlay>
         </div>}
         <Hero promiseData={promiseData} />
@@ -172,6 +172,7 @@ function App() {
             <Route path="/swap" element={<Swap />} />
           </Routes>
         </DAppProvider>
+        <ToastContainer />
       </BrowserRouter>
     </>
   );
