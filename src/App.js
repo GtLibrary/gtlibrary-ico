@@ -17,8 +17,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
 const ccoin_addr = "0x18DA08e33B60901929dF1317Ef70C5779899bbEC";
-const presale_addr = "0x6E62c655fab2893e78d2544fb7dcE027bB86D16F";
-const vesting_addr = "0xa193b79D21416F41ccC78d75eB7D296F85f9dBFA";
+const presale_addr = "0xf76Bba26b362fbAb6CB4b5e330058392A8fa488";
+const vesting_addr = "0xca088C902BB73De76fa6C68B7e5B10d42c057d6c";
 let CCOINPortal;
 let PresalePortal;
 let VestingPortal;
