@@ -5,26 +5,28 @@ import vesting_abi from "./utils/VESTINGabi.json";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./pages/Home";
 import Swap from "./pages/Swap";
+import Vesting from "./pages/Vesting";
 import Hero from "./components/Hero";
 import BigNumber from "bignumber.js";
 import { ethers } from "ethers";
 import { useWeb3React } from "@web3-react/core";
 //dapp
-import { DAppProvider } from "@usedapp/core";
+// import { DAppProvider } from "@usedapp/core";
 import "./App.css";
 import LoadingOverlay from "react-loading-overlay";
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+LoadingOverlay.propTypes = undefined;
 
 const ccoin_addr = "0x18DA08e33B60901929dF1317Ef70C5779899bbEC";
-const presale_addr = "0x6E62c655fab2893e78d2544fb7dcE027bB86D16F";
-const vesting_addr = "0xa193b79D21416F41ccC78d75eB7D296F85f9dBFA";
+const presale_addr = "0xce93b8D2683714570713BD53Ee01A62F031a5E24";
+const vesting_addr = "0xb5DFE80988FAD6578930151B646CBFd1F9b561Fc";
 let CCOINPortal;
 let PresalePortal;
 let VestingPortal;
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const { account, library } = useWeb3React();
   const [presaleStart, setPresaleStart] = useState(0);
   const [isEnded, setIsEnded] = useState(false);
@@ -46,6 +48,19 @@ function App() {
     }
   };
 
+  const claimCC = async (amount) => {
+    const {ethereum} = window;
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      VestingPortal = new ethers.Contract(presale_addr, presale_abi, signer);
+      let withraw = await VestingPortal.withdrawToken();
+      await withraw.wait();
+
+      await getContractData();
+    }
+  }
+
   useEffect(() => {
     async function contractdata() {
       const { ethereum } = window;
@@ -57,6 +72,7 @@ function App() {
   }, [account]);
 
   const getContractData = async () => {
+    setLoading(true);
     const { ethereum } = window;
     if (ethereum) {
       let signer;
@@ -76,27 +92,30 @@ function App() {
 
       const promises = [];
 
-      promises.push(await CCOINPortal.balanceOf(presale_addr)); // saleable token amount
+      promises.push(await CCOINPortal.balanceOf(vesting_addr)); // total presale token amount
       promises.push(await PresalePortal.totalsold()); /// sold token amount
       promises.push(await PresalePortal.START()); // get start time
-      promises.push(await PresalePortal.DAYS()); /// get duration
-      promises.push(await PresalePortal.getCuurentTime()); // get current time
+      promises.push(await PresalePortal.PERIOD()); /// get duration
+      promises.push(await PresalePortal.getCurrentTime()); // get current time
       promises.push(await PresalePortal.isActive()); // get active flag
-      promises.push(await PresalePortal.tokenprice()); // get token change rate
+      promises.push(await PresalePortal.tokenchangeRate()); // get token change rate
       promises.push(await CCOINPortal.totalSupply()); // total supply token amount
       if (account) {
         promises.push(await PresalePortal.getAvaxBal(account)); /// buy available avax amount
         promises.push(await CCOINPortal.balanceOf(account)); // cc token amount
+        promises.push(await VestingPortal.getLocked(account)); // locked cc token amount by user
+        promises.push(await VestingPortal.getWithdrawable(account)); // withrawable cc token amount
+        promises.push(await VestingPortal.getVested(account)); // unlocked cc token amount
+        promises.push(await VestingPortal.getTGETime()); // vesting start_day
       }
 
-      setLoading(true);
       let temp = [];
       Promise.all(promises).then((responses) => {
         responses.forEach((response, index) => {
           temp.push(response);
         });
         let promisedata = [];
-        promisedata["remain_token"] = new BigNumber(Number(temp[0]))
+        promisedata["total_token"] = new BigNumber(Number(temp[0]))
           .dividedBy(10 ** 18)
           .toFixed(2);
         promisedata["sold_token"] = new BigNumber(Number(temp[1]))
@@ -119,6 +138,16 @@ function App() {
           promisedata["ccoin_token"] = new BigNumber(Number(temp[9]))
             .dividedBy(10 ** 18)
             .toFixed(2);
+          promisedata["vested_token"] = new BigNumber(Number(temp[10]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["withrawable_token"] = new BigNumber(Number(temp[11]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["unlocked_token"] = new BigNumber(Number(temp[12]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["vest_starttime"] = new BigNumber(Number(temp[13])).toFixed(0);
         } else {
           promisedata["avax_val"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
@@ -126,6 +155,16 @@ function App() {
           promisedata["ccoin_token"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
             .toFixed(2);
+          promisedata["vested_token"] = new BigNumber(Number(0))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["withrawable_token"] = new BigNumber(Number(0))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["unlocked_token"] = new BigNumber(Number(0))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["vest_starttime"] = new BigNumber(Number(temp[13])).toFixed(0);
         }
         setPromiseData(promisedata);
         setPresaleStart(Number(presaleStart_));
@@ -138,24 +177,35 @@ function App() {
   return (
     <>
       <BrowserRouter>
-        {loading && <div style={{background:"#00000055", width:"100%", height:"102%", zIndex:"1000", position: "absolute", top: 0}}>
-          <LoadingOverlay
-            active={true}
-            spinner
-            text="Loading ..."
-            styles={{
-              overlay: (base) => ({
-                ...base,
-                background: "rgba(255, 255, 255)",
-                position:"absolute",
-                marginTop:"30%",
-              }),
+        {loading && (
+          <div
+            style={{
+              background: "#00000055",
+              width: "100%",
+              height: "102%",
+              zIndex: "1000",
+              position: "absolute",
+              top: 0,
             }}
-            fadeSpeed = {9000}
-          ></LoadingOverlay>
-        </div>}
+          >
+            <LoadingOverlay
+              active={true}
+              spinner
+              text="Loading ..."
+              styles={{
+                overlay: (base) => ({
+                  ...base,
+                  background: "rgba(255, 255, 255)",
+                  position: "absolute",
+                  marginTop: "30%",
+                }),
+              }}
+              fadeSpeed={9000}
+            ></LoadingOverlay>
+          </div>
+        )}
         <Hero promiseData={promiseData} />
-        <DAppProvider config={{}}>
+        {/* <DAppProvider config={{}}> */}
           <Routes>
             <Route
               path="/"
@@ -170,8 +220,20 @@ function App() {
               }
             />
             <Route path="/swap" element={<Swap />} />
+            <Route
+              path="/vesting"
+              element={
+                <Vesting
+                  account={account}
+                  promiseData={promiseData}
+                  presaleStart={presaleStart}
+                  isEnded={isEnded}
+                  claimCC={claimCC}
+                />
+              }
+            />
           </Routes>
-        </DAppProvider>
+        {/* </DAppProvider> */}
         <ToastContainer />
       </BrowserRouter>
     </>

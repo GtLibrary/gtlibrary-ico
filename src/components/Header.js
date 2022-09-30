@@ -30,7 +30,7 @@ const Header = ({ account, handleLogin, handleLogout, copyToClipBoard, promiseDa
           {/* <a className='font-nulshock cursorPointer fs-18 ml-30 link active'>Presale</a> */}
           <a className={selectedTab === 1 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer link fs-18 font-dark ml-30'} onClick={() => {handleSelectTab(1); navigate('/')}}>Presale</a>
           <a className={selectedTab === 2 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => {handleSelectTab(2); navigate('/swap')}}>Swap</a>
-          {/* <a className={selectedTab === 3 ? 'font-nulshock cursorPointer link fs-18 ml-30 font-dark active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => handleSelectTab(3)}>Staking<span> (coming soon)</span></a> */}
+          <a className={selectedTab === 3 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => {handleSelectTab(3); navigate('/vesting')}}>Claim CC</a>
         </div>
       </div>
       <div className="right-header">

@@ -17,8 +17,8 @@ const LeftSideBar = ({ account, promiseData, presaleStart, isEnded }) => {
             </div>
             <div className="flex-column bt-1 pt-20">
                 <span className="font-nulshock t-blue">ON SALE</span>
-                <span className="font-nulshock mb-5">{Number(promiseData["remain_token"]) + Number(promiseData["sold_token"])} CC</span>
-                <span className=" mb-10 t-gray font-nulshock">{(Number(promiseData["remain_token"]).toFixed(0) * 100 + Number(promiseData["sold_token"] * 100)) / Number(promiseData["total_supply"]).toFixed(4)}% of total supply</span>
+                <span className="font-nulshock mb-5">{Number(promiseData["total_token"])} CC</span>
+                <span className=" mb-10 t-gray font-nulshock">{(Number(promiseData["total_token"]).toFixed(0) * 100 / Number(promiseData["total_supply"])).toFixed(2)}% of total supply</span>
             </div>
             <div className="flex-column bt-1 pt-20">
                 <span className="font-nulshock t-blue">CC/AVAX</span>

@@ -42,10 +42,10 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN }) => {
                 <div className="progress-section font-non-nulshock t-grey2 fs-20">
                     <div className="progress-title">
                         <p>Progress</p>
-                        <p>{promiseData["remain_token"] === undefined && promiseData["sold_token"] == undefined ? "0/0" : Number(promiseData["sold_token"]).toLocaleString()+"/"+(Number(promiseData["remain_token"]) + Number(promiseData["sold_token"])).toLocaleString()} CC</p>
+                        <p>{promiseData["total_token"] === undefined && promiseData["sold_token"] == undefined ? "0/0" : Number(promiseData["sold_token"]).toLocaleString()+"/"+(Number(promiseData["total_token"])).toLocaleString()} CC</p>
                     </div>
                     <div className="mt-10">
-                        <ProgressBar label={promiseData["remain_token"] === undefined && promiseData["sold_token"] == undefined ? "0%" : (`${progress(Number(promiseData["sold_token"]), (Number(promiseData["remain_token"]) + Number(promiseData["sold_token"])))}%`)} now={promiseData["sold_token"] == undefined && promiseData["remain_token"] == undefined ? 0 : (progress(Number(promiseData["sold_token"]), (Number(promiseData["remain_token"]) + Number(promiseData["sold_token"]))) < 100 ? progress(Number(promiseData["sold_token"]), (Number(promiseData["remain_token"]) + Number(promiseData["sold_token"]))) : 100)} className={progress(Number(promiseData["sold_token"]), Number(promiseData["remain_token"] + promiseData["sold_token"])) < 100 ? "progress1" : "progress2"} />
+                        <ProgressBar label={promiseData["total_token"] === undefined && promiseData["sold_token"] == undefined ? "0%" : (`${progress(Number(promiseData["sold_token"]), Number(promiseData["total_token"]))}%`)} now={promiseData["sold_token"] == undefined && promiseData["total_token"] == undefined ? 0 : (progress(Number(promiseData["sold_token"]), (Number(promiseData["total_token"]) + Number(promiseData["sold_token"]))) < 100 ? progress(Number(promiseData["sold_token"]), (Number(promiseData["total_token"]))) : 100)} className={progress(Number(promiseData["sold_token"]), Number(promiseData["total_token"])) < 100 ? "progress1" : "progress2"} />
                     </div>
                 </div>
                 <div className="from-container">

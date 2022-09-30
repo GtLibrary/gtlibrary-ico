@@ -2,7 +2,11 @@
   {
     "inputs": [
       { "internalType": "address", "name": "_tokenaddress", "type": "address" },
-      { "internalType": "uint256", "name": "_tokenvalue", "type": "uint256" },
+      {
+        "internalType": "uint256",
+        "name": "_tokenChangeRate",
+        "type": "uint256"
+      },
       { "internalType": "uint256", "name": "_startTime", "type": "uint256" },
       { "internalType": "uint256", "name": "_duringDays", "type": "uint256" }
     ],
@@ -49,7 +53,7 @@
   },
   {
     "inputs": [],
-    "name": "DAYS",
+    "name": "PERIOD",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -102,14 +106,14 @@
   },
   {
     "inputs": [],
-    "name": "getBalance",
+    "name": "getBalanceofAvax",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },
   {
     "inputs": [],
-    "name": "getCuurentTime",
+    "name": "getCurrentTime",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
@@ -129,8 +133,40 @@
     "type": "function"
   },
   {
+    "inputs": [{ "internalType": "address", "name": "", "type": "address" }],
+    "name": "recipients",
+    "outputs": [
+      {
+        "internalType": "uint256",
+        "name": "amountDepositedAVAX",
+        "type": "uint256"
+      },
+      { "internalType": "uint256", "name": "amountCCoin", "type": "uint256" }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [],
     "name": "renounceOwnership",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "address", "name": "_CCoinToken", "type": "address" }
+    ],
+    "name": "setCCoinTokenAddress",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      { "internalType": "uint256", "name": "rate", "type": "uint256" }
+    ],
+    "name": "setPriceRate",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -140,6 +176,19 @@
       { "internalType": "uint256", "name": "_startTime", "type": "uint256" }
     ],
     "name": "setStartTime",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "_vestingContract",
+        "type": "address"
+      }
+    ],
+    "name": "setVestingContractAddress",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
@@ -162,7 +211,7 @@
   },
   {
     "inputs": [],
-    "name": "tokenprice",
+    "name": "tokenchangeRate",
     "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
