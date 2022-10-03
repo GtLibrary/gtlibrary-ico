@@ -32,7 +32,7 @@ const RightSideBar = ({ account, promiseData, presaleStart, isEnded, approve_AVA
 
     return (
         <div className="rightsidebar">
-            {!presaleStart ? <button className="private-button font-nulshock fs-14">PRIVATE</button> : <button className="live-button font-nulshock fs-14">LIVE</button>}
+            {!presaleStart || isEnded ? <button className="private-button font-nulshock fs-14">PRIVATE</button> : <button className="live-button font-nulshock fs-14">LIVE</button>}
             
             <div className='flex-column alignCenter rightsidebar-content'>
                 <Purchase promiseData={promiseData} leftDays={leftDays} buy_CCOIN={buy_CCOIN} />

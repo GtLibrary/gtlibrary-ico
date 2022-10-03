@@ -1,10 +1,11 @@
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate, useLocation } from 'react-router-dom'
 
 
 const Header = ({ account, handleLogin, handleLogout, copyToClipBoard, promiseData }) => {
   const [selectedTab, setSelectedTab] = useState(1)
   const navigate = useNavigate();
+  var location = useLocation();
   
   const handleSelectTab = (value) => {
     setSelectedTab(value);
@@ -28,9 +29,9 @@ const Header = ({ account, handleLogin, handleLogout, copyToClipBoard, promiseDa
         </Link>
         <div className="navbar-links" id="toggle-navbar-links">
           {/* <a className='font-nulshock cursorPointer fs-18 ml-30 link active'>Presale</a> */}
-          <a className={selectedTab === 1 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer link fs-18 font-dark ml-30'} onClick={() => {handleSelectTab(1); navigate('/')}}>Presale</a>
-          <a className={selectedTab === 2 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => {handleSelectTab(2); navigate('/swap')}}>Swap</a>
-          <a className={selectedTab === 3 ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => {handleSelectTab(3); navigate('/vesting')}}>Claim CC</a>
+          <a className={location.pathname === "/" ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer link fs-18 font-dark ml-30'} onClick={() => {handleSelectTab(1); navigate('/')}}>Presale</a>
+          <a className={location.pathname === "/vesting" ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => {handleSelectTab(3); navigate('/vesting')}}>Claim CC</a>
+          <a className={location.pathname === "/swap" ? 'font-nulshock cursorPointer link fs-18 ml-30 active' : 'font-nulshock cursorPointer fs-18 ml-30 font-dark link'} onClick={() => {handleSelectTab(2); navigate('/swap')}}>Swap</a>
         </div>
       </div>
       <div className="right-header">
