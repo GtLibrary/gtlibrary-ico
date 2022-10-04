@@ -90,7 +90,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN }) => {
                     </div>
                 </div>
                 <div>
-                    {fromAmount > promiseData["avax_val"] ? 
+                    { fromAmount > promiseData["avax_val"] * 1 ? 
                     <button className="insufficient-button font-non-nulshock fs-30">
                         Insufficient balance
                     </button> : (fromAmount <= 0 ? 
