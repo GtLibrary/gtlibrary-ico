@@ -104,7 +104,7 @@ function App() {
       if (account) {
         promises.push(await PresalePortal.getAvaxBal(account)); /// buy available avax amount
         promises.push(await CCOINPortal.balanceOf(account)); // cc token amount
-        promises.push(await VestingPortal.getLocked(account)); // locked cc token amount by user
+        promises.push(await VestingPortal.recipients(account)); // locked cc token amount by user
         promises.push(await VestingPortal.getWithdrawable(account)); // withrawable cc token amount
         promises.push(await VestingPortal.getVested(account)); // unlocked cc token amount
         promises.push(await VestingPortal.getTGETime()); // vesting start_day
@@ -139,7 +139,7 @@ function App() {
           promisedata["ccoin_token"] = new BigNumber(Number(temp[9]))
             .dividedBy(10 ** 18)
             .toFixed(2);
-          promisedata["vested_token"] = new BigNumber(Number(temp[10]))
+          promisedata["vested_token"] = new BigNumber(Number(temp[10]['totalAmount']))
             .dividedBy(10 ** 18)
             .toFixed(2);
           promisedata["withrawable_token"] = new BigNumber(Number(temp[11]))

@@ -8,11 +8,12 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
   const [toAmount, setToAmount] = useState(0);
   const [rate, setRate] = useState(0.0);
 
-  // const bigAmount = new BigNumber(fromAmount).multipliedBy(10 ** 6).toFixed(4);
-
   const progress = (sold, total) => {
     if (sold < total) {
-      return ((sold * 100) / total).toFixed(5);
+      return ((sold * 100) / total).toLocaleString(undefined, {
+        minimumFractionDigits: 0,
+        maximumFractionDigits: 5,
+      });
     } else {
       return 100;
     }
@@ -45,7 +46,7 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
                 </div> */}
                 <div className="progress-section font-non-nulshock t-grey2 fs-20">
                   <div className="progress-title">
-                    <p>Progress</p>
+                    <p>Claim Progress</p>
                     <p>
                       {promiseData["vested_token"] === undefined &&
                       promiseData["unlocked_token"] == undefined
@@ -106,7 +107,17 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
                       className="input-value-section t-grey2 fs-30"
                       type="number"
                       placeholder="0.0"
-                      value={!promiseData["withrawable_token"] ? '' : promiseData["withrawable_token"]}
+                      value={
+                        promiseData["withrawable_token"] <= 0
+                          ? ""
+                          : Number(promiseData["withrawable_token"]).toLocaleString(
+                              undefined,
+                              {
+                                minimumFractionDigits: 0,
+                                maximumFractionDigits: 5,
+                              }
+                            )
+                      }
                       readOnly
                     />
                     <div className="max-button-section">
