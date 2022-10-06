@@ -25,7 +25,10 @@ const LeftSideBar = ({ account, promiseData, presaleStart, isEnded }) => {
             </div>
             <div className="flex-column bt-1 pt-20">
                 <span className="font-nulshock t-blue">CC/AVAX</span>
-                <span className="font-nulshock mb-5">1 CC = {promiseData["token_price"] == 0 ? "0" : 1/promiseData["token_price"]} AVAX</span>
+                <span className="font-nulshock mb-5">1 CC = {(promiseData["token_price"] == 0 ? "0" : 1/promiseData["token_price"]).toLocaleString(undefined, {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 4,
+              })} AVAX</span>
                 <span className=" mb-10 t-gray font-nulshock">1 AVAX = {promiseData["token_price"]} CC</span>
             </div>
             <div className="flex-column bt-1 pt-20">

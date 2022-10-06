@@ -3,7 +3,7 @@ import { ProgressBar } from "react-bootstrap";
 import BigNumber from "bignumber.js";
 import { toast } from "react-toastify";
 
-const Purchase = ({ promiseData, leftDays, buy_CCOIN }) => {
+const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
   const [fromAmount, setFromAmount] = useState(0);
   const [toAmount, setToAmount] = useState(0);
   const [rate, setRate] = useState(0.0);
@@ -37,12 +37,20 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN }) => {
   return (
     <>
       <div className="">
-        <div className="calendar-section">
+        {isEnded ? (
+          <div className="calendar-section">
           <img alt="calendar" src="calendar.png" />
-          <p className="calendar-title font-non-nulshock fs-20 ml-10">
-            {leftDays()} day(s) left
-          </p>
-        </div>
+            <p className="font-non-nulshock fs-20 ml-10">Presale ended</p>
+          </div>
+        ) : (
+          <div className="calendar-section">
+            <img alt="calendar" src="calendar.png" />
+            <p className="calendar-title font-non-nulshock fs-20 ml-10">
+              {leftDays()} day(s) left
+            </p>
+          </div>
+        )}
+
         <div className="progress-section font-non-nulshock t-grey2 fs-20">
           <div className="progress-title">
             <p>Progress</p>
@@ -112,7 +120,9 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN }) => {
               value={fromAmount}
               onChange={(e) => {
                 setToAmount(
-                  Number(e.target.value * promiseData["token_price"]).toLocaleString(undefined, {
+                  Number(
+                    e.target.value * promiseData["token_price"]
+                  ).toLocaleString(undefined, {
                     minimumFractionDigits: 0,
                     maximumFractionDigits: 4,
                   })
@@ -161,10 +171,12 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN }) => {
               })}
               onChange={(e) => {
                 setFromAmount(
-                  Number(e.target.value / promiseData["token_price"]).toLocaleString(undefined, {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 4,
-              })
+                  Number(
+                    e.target.value / promiseData["token_price"]
+                  ).toLocaleString(undefined, {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 4,
+                  })
                 );
                 setToAmount(e.target.value);
               }}
@@ -181,10 +193,16 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN }) => {
             {rate === 0 ? (
               <p>{promiseData["token_price"]} CC per AVAX</p>
             ) : (
-              <p>{Number(1 / promiseData["token_price"]).toLocaleString(undefined, {
-                minimumFractionDigits: 0,
-                maximumFractionDigits: 4,
-              })} AVAX per CC</p>
+              <p>
+                {Number(1 / promiseData["token_price"]).toLocaleString(
+                  undefined,
+                  {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 4,
+                  }
+                )}{" "}
+                AVAX per CC
+              </p>
             )}
             <img
               alt="direction"

@@ -19,8 +19,8 @@ import "react-toastify/dist/ReactToastify.css";
 LoadingOverlay.propTypes = undefined;
 
 const ccoin_addr = "0x18DA08e33B60901929dF1317Ef70C5779899bbEC";
-const presale_addr = "0x5D0bCfE1c779890AB4DF825579B7A134a7254291";
-const vesting_addr = "0x65A9eC16907cc38048bfe03F3FFeb97f0CCbf506";
+const presale_addr = "0x435A80d3cCA7856dC69248ad948b4652C810ADEB";
+const vesting_addr = "0x4e178b6c960C7746814d9911B082AA494D6A96e3";
 
 let CCOINPortal;
 let PresalePortal;
@@ -128,7 +128,7 @@ function App() {
         promisedata["end_day"] = new Date(presaleEnd_).toUTCString();
         promisedata["current_time"] = new Date(temp[4] * 1000).toUTCString();
         promisedata["is_active"] = temp[5];
-        promisedata["token_price"] = new BigNumber(Number(temp[6])).toFixed(0);
+        promisedata["token_price"] = ((new BigNumber(Number(temp[6]))) / 1000).toFixed(3);
         promisedata["total_supply"] = new BigNumber(Number(temp[7]))
           .dividedBy(10 ** 18)
           .toFixed(0);
