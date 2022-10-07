@@ -19,8 +19,8 @@ import "react-toastify/dist/ReactToastify.css";
 LoadingOverlay.propTypes = undefined;
 
 const ccoin_addr = "0x18DA08e33B60901929dF1317Ef70C5779899bbEC";
-const presale_addr = "0x435A80d3cCA7856dC69248ad948b4652C810ADEB";
-const vesting_addr = "0x4e178b6c960C7746814d9911B082AA494D6A96e3";
+const presale_addr = "0x20Caa2F9620438D6f9DE908631dEd2a58CE2E2aD";
+const vesting_addr = "0x6ACe5e13Ba6cc19be7F7358D2B66BA1CD586668a";
 
 let CCOINPortal;
 let PresalePortal;
