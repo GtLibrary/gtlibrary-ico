@@ -693,6 +693,9 @@ a.font-dark {
     position: absolute;
     top: 80px;
     right: 55px;
+    padding: 10px 20px;
+    background-color: black;
+    border: 1px solid #423232;
   }
 
   .navbar-menu-icon {
@@ -744,6 +747,9 @@ a.font-dark {
   .navbar-links.responsive {
     top: 80px;
     right: 25px;
+    padding: 10px 20px;
+    background-color: black;
+    border: 1px solid #423232;
   }
 
   #logo {

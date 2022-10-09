@@ -39,6 +39,13 @@ const Header = ({ account, handleLogin, handleLogout, copyToClipBoard, promiseDa
           <div className="ccoin-title ml-50">
             <img alt='logo' src="c-coin-logo.png" width={40} height={40} />
             <div className="ml-5">
+              <p className="ccoin-nulshock t-gray fs-14">Locked $CC</p>
+              <p className="font-nulshock t-white fs-18">{promiseData["vested_token"] ? promiseData["vested_token"] : 0}</p>
+            </div>
+          </div>
+          <div className="ccoin-title ml-50">
+            <img alt='logo' src="c-coin-logo.png" width={40} height={40} />
+            <div className="ml-5">
               <p className="ccoin-nulshock t-gray fs-14">$CC</p>
               <p className="font-nulshock t-white fs-18">{promiseData["ccoin_token"] ? promiseData["ccoin_token"] : 0}</p>
             </div>
