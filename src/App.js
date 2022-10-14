@@ -54,7 +54,7 @@ function App() {
     if (ethereum) {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
-      VestingPortal = new ethers.Contract(presale_addr, presale_abi, signer);
+      VestingPortal = new ethers.Contract(vesting_addr, presale_abi, signer);
       let withraw = await VestingPortal.withdrawToken();
       await withraw.wait();
 
