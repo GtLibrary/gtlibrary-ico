@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import Header from "./Header";
 import { useWeb3React } from "@web3-react/core";
 import { injected } from "../pages/connector";
-import { NotificationContainer, NotificationManager } from "react-notifications";
+import { toast } from "react-toastify";
 import "../styles/Hero.css";
 
 let isConfirm = false;
@@ -18,13 +18,27 @@ const Hero = props => {
     //   console.log("status  => ", status)
       isConfirm = true
       localStorage.setItem("accountStatus", "1");
+      toast.success('Successfully Connected to Metamask', {
+        position: "bottom-right",
+        autoClose: 2000,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+      });
       activate(injected)
   }
 
   const handleLogout = () => {
-      isConfirm = false
-      localStorage.removeItem("accountStatus")
-      deactivate()
+        isConfirm = false
+        localStorage.removeItem("accountStatus")
+        toast.success('Disconnected', {
+            position: "bottom-right",
+            autoClose: 2000,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          });
+        deactivate()
   }
 
   function copyToClipBoard() {
@@ -33,40 +47,8 @@ const Hero = props => {
       setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
   }
 
-  const connectWallet = async () => {
-    if (window.ethereum) {
-        try {
-            const addressArray = await window.ethereum.request({
-                method: "eth_requestAccounts",
-            })
-            const obj = {
-                status: "success",
-                address: addressArray[0]
-            };
-            return obj;
-        } catch (err) {
-            return {
-              address: "",
-              status: "😥 " + err.message,
-            };
-        }
-    } else {
-        return {
-            address: "",
-            status: "",
-        };
-    }
-}
-
   useEffect(() => {
     
-    //   if(account) {
-    //       NotificationManager.success('Successfully Connected to Metamask');
-    //   }
-    //   else {
-    //       NotificationManager.success('Successfully Disconnected');
-    //   }
-
       if (!chainId && isConfirm) {
           const { ethereum } = window;
           (async () => {

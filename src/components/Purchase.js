@@ -23,7 +23,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
 
   const clickBuy = async () => {
     await buy_CCOIN(Number(fromAmount));
-    toast.success("Succesfuly buy token and vested!", {
+    toast.success("Purchase successful", {
       position: "top-center",
       autoClose: 4000,
       closeOnClick: true,

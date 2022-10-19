@@ -24,9 +24,9 @@ const RightSideBar = ({ account, promiseData, presaleStart, isEnded, approve_AVA
         const leftDay = (Date.parse(promiseData["end_day"]) - (Date.now() + 3600000)) / 86400000;
 
         if (leftDay > 0 && leftDay < 30) {
-            return leftDay.toFixed(0);
+            return leftDay.toFixed(0) + 1;
         } else {
-            return 0;
+            return 1;
         } 
     }
 

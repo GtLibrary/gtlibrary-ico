@@ -38,12 +38,12 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
           <div className="rightsidebar">
             <div className="flex-column alignCenter rightsidebar-content">
               <div className="">
-                {/* <div className="calendar-section">
+                <div className="calendar-section">
                   <img alt="calendar" src="calendar.png" />
                   <p className="calendar-title font-non-nulshock fs-20 ml-10">
-                    Vesting Start Day:{promiseData["vest_starttime"]}
+                    13 days
                   </p>
-                </div> */}
+                </div>
                 <div className="progress-section font-non-nulshock t-grey2 fs-20">
                   <div className="progress-title">
                     <p>Claim Progress</p>
