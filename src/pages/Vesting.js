@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ProgressBar } from "react-bootstrap";
-import BigNumber from "bignumber.js";
 import { toast } from "react-toastify";
 
 const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
   const [fromAmount, setFromAmount] = useState(0);
-  const [toAmount, setToAmount] = useState(0);
-  const [rate, setRate] = useState(0.0);
+  const [vestingflag, setvestingflag] = useState(false);
+  const [vestedtime, setVestedtime] = useState('');
 
   const progress = (sold, total) => {
     if (sold < total) {
@@ -18,6 +17,19 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
       return 100;
     }
   };
+
+  useEffect(() => {
+    var current_time = (new Date()).getTime();
+    if(promiseData['vest_starttime'] < promiseData['vesting_endtime']) {
+      if (current_time < promiseData['vesting_endtime']) {
+        const leftDay = (Date.parse(promiseData["vesting_endtime"])) / 86400000;
+        setVestedtime(leftDay);
+        setvestingflag(false);
+      } else {  
+        setvestingflag(true);
+      }
+    }
+  })
 
   const claimCCoin = async () => {
     await claimCC(Number(fromAmount));
@@ -38,12 +50,6 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
           <div className="rightsidebar">
             <div className="flex-column alignCenter rightsidebar-content">
               <div className="">
-                <div className="calendar-section">
-                  <img alt="calendar" src="calendar.png" />
-                  <p className="calendar-title font-non-nulshock fs-20 ml-10">
-                    13 days
-                  </p>
-                </div>
                 <div className="progress-section font-non-nulshock t-grey2 fs-20">
                   <div className="progress-title">
                     <p>Claim Progress</p>
@@ -135,7 +141,9 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
                 <div className="mt-20 mb-20">
                   {promiseData["withrawable_token"] <= 0 ? (
                     <button className="insufficient-button font-non-nulshock fs-30">
-                      Insufficient balance
+                      {
+                        (!vestingflag ? 'Not Start Claim Period': 'Next Claim Day: '+ vestedtime + ' days after') 
+                      }
                     </button>
                   ) : (
                     <button

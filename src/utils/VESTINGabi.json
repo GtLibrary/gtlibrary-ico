@@ -72,6 +72,13 @@
     "type": "function"
   },
   {
+    "inputs": [],
+    "name": "getCurrentVestingTime",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "inputs": [
       { "internalType": "address", "name": "beneficiary", "type": "address" }
     ],
@@ -95,6 +102,13 @@
     "outputs": [
       { "internalType": "uint256", "name": "_amountVested", "type": "uint256" }
     ],
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "inputs": [],
+    "name": "getVestingEndTime",
+    "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
     "stateMutability": "view",
     "type": "function"
   },

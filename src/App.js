@@ -18,9 +18,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 LoadingOverlay.propTypes = undefined;
 
-const ccoin_addr = "0x18DA08e33B60901929dF1317Ef70C5779899bbEC";
-const presale_addr = "0x20Caa2F9620438D6f9DE908631dEd2a58CE2E2aD";
-const vesting_addr = "0x6ACe5e13Ba6cc19be7F7358D2B66BA1CD586668a";
+const ccoin_addr = "0x26ab577eD1C0e2aC24AB1b48Ba26C5040d6Ad5E8";
+const presale_addr = "0x9e2a7f4E28d6E0068EF575a781F6f57aC5a0d9d8";
+const vesting_addr = "0xEa9A4f9eA589b1C68281B32Cb27569B9AC6d06c0";
 
 let CCOINPortal;
 let PresalePortal;
@@ -108,6 +108,7 @@ function App() {
         promises.push(await VestingPortal.getWithdrawable(account)); // withrawable cc token amount
         promises.push(await VestingPortal.getVested(account)); // unlocked cc token amount
         promises.push(await VestingPortal.getTGETime()); // vesting start_day
+        promises.push(await VestingPortal.getVestingEndTime()); // vesting start_day
       }
 
       let temp = [];
@@ -166,6 +167,7 @@ function App() {
             .dividedBy(10 ** 18)
             .toFixed(2);
           promisedata["vest_starttime"] = new BigNumber(Number(temp[13])).toFixed(0);
+          promisedata["vesting_endtime"] = new BigNumber(Number(temp[14])).toFixed(0);
         }
         setPromiseData(promisedata);
         setPresaleStart(Number(presaleStart_));
