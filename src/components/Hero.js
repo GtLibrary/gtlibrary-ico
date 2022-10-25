@@ -55,11 +55,13 @@ const Hero = props => {
               try {
                   await ethereum.request({
                       method: "wallet_switchEthereumChain",
-                      params: [{ chainId: "0xA869" }],
+                      params: [{ chainId: "0xA869" }],		// Testnet fuji
+		      // params: [{ chainId: "0xa86a" }], 	// Mainnet avax/avalanche
                   });
               } catch (switchError) {
                   if (switchError.code === 4902) {
                       try {
+			  /* Testnet */
                           await ethereum.request({
                               method: "wallet_addEthereumChain",
                               params: [
@@ -76,6 +78,27 @@ const Hero = props => {
                                   },
                               ],
                           });
+			  /*  Testnet */
+
+			  /* Mainnet 
+                          await ethereum.request({
+                              method: "wallet_addEthereumChain",
+                              params: [
+                                  {
+                                      chainId: "0xa86a",
+                                      chainName: "Avalanche C-Chain",
+                                      nativeCurrency: {
+                                          name: "Avalanche",
+                                          symbol: "AVAX",
+                                          decimals: 18,
+                                      },
+				      rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
+                                      blockExplorerUrls: ["https://snowtrace.io/"],
+                                  },
+                              ],
+                          });
+			  Mainnet */
+
                       } catch (addError) {
                           console.error(addError);
                       }
