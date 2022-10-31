@@ -24,7 +24,7 @@ const RightSideBar = ({ account, promiseData, presaleStart, isEnded, approve_AVA
         const leftDay = (Date.parse(promiseData["end_day"]) - (Date.now() + 3600000)) / 86400000;
 
         if (leftDay > 0 && leftDay < 30) {
-            return leftDay.toFixed(0) + 1;
+            return Number(leftDay.toFixed(0)) + 1;
         } else {
             return 1;
         } 
@@ -32,7 +32,10 @@ const RightSideBar = ({ account, promiseData, presaleStart, isEnded, approve_AVA
 
     return (
         <div className="rightsidebar">
-            {!presaleStart || isEnded ? <button className="private-button font-nulshock fs-14">PRIVATE</button> : <button className="live-button font-nulshock fs-14">LIVE</button>}
+            {   !presaleStart || isEnded ? 
+                <button className="private-button font-nulshock fs-14">PRIVATE</button> : 
+                <button className="live-button font-nulshock fs-14">LIVE</button>
+            }
             
             <div className='flex-column alignCenter rightsidebar-content'>
                 <Purchase promiseData={promiseData} leftDays={leftDays} buy_CCOIN={buy_CCOIN} isEnded={isEnded} />
