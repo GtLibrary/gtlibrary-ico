@@ -38,10 +38,18 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
     <>
       <div className="">
         {isEnded ? (
-          <div className="calendar-section">
-          <img alt="calendar" src="calendar.png" />
-            <p className="font-non-nulshock fs-20 ml-10">Presale ended</p>
-          </div>
+          (Date.parse(new Date()) < Date.parse(promiseData['start_day'])) ? 
+          (
+            <div className="calendar-section">
+            <img alt="calendar" src="calendar.png" />
+              <p className="font-non-nulshock fs-20 ml-10">Presale not start</p>
+            </div>
+          ) : (
+            <div className="calendar-section">
+            <img alt="calendar" src="calendar.png" />
+              <p className="font-non-nulshock fs-20 ml-10">Presale ended</p>
+            </div>
+          )
         ) : (
           <div className="calendar-section">
             <img alt="calendar" src="calendar.png" />
@@ -229,12 +237,21 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
               Min. Purchase is 0.02 AVAX
             </button>
           ) : (
-            <button
-              className="big-order-button font-non-nulshock fs-30"
-              onClick={clickBuy}
-            >
-              Complete Order
-            </button>
+            (!isEnded ? (
+              <button
+                className="big-order-button font-non-nulshock fs-30"
+                onClick={clickBuy}
+              >
+                Complete Order
+              </button>
+            ): (
+              <button
+                className="amount-button font-non-nulshock fs-30"
+                onClick={clickBuy} disabled
+              >
+                Presale Ended
+              </button>
+            ))
           )}
         </div>
       </div>

@@ -28,3 +28,6 @@ a {
   justify-content:center;
   margin-bottom: 100px;
 }
+.disabled .disabled:hover{
+  background-color: #41444E !important;
+}

@@ -25,7 +25,7 @@ const Header = ({ account, handleLogin, handleLogout, copyToClipBoard, promiseDa
       <div id="link-containers">
         <Link to="/" id="logo">
           <img alt='logo' src='c-coin-logo.png' className="spinblade-icon" />&nbsp;
-          <h1 className="logo-nulshock">Culture Coin</h1>
+          <h1 className="logo-nulshock">Buy Culture Coin</h1>
         </Link>
         <div className="navbar-links" id="toggle-navbar-links">
           {/* <a className='font-nulshock cursorPointer fs-18 ml-30 link active'>Presale</a> */}
