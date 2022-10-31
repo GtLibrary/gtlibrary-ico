@@ -142,7 +142,7 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
                   {promiseData["withrawable_token"] <= 0 ? (
                     <button className="insufficient-button font-non-nulshock fs-30">
                       {
-                        (!vestingflag ? 'Not Start Claim Period': 'Next Claim Day: '+ vestedtime + ' days after') 
+                        (!vestingflag ? 'Claim Period Not Yet Started': 'Next Claim Day: '+ vestedtime + ' days after') 
                       }
                     </button>
                   ) : (

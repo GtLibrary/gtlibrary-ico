@@ -232,9 +232,9 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
             <button className="amount-button font-non-nulshock fs-30">
               Enter an amount
             </button>
-          ) : fromAmount < 0.02 ? (
+          ) : fromAmount < 0.001 ? (
             <button className="min-price-button font-non-nulshock fs-30">
-              Min. Purchase is 0.02 AVAX
+              Min. Purchase is 0.001 AVAX
             </button>
           ) : (
             (!isEnded ? (
