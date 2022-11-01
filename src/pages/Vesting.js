@@ -20,13 +20,13 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
 
   useEffect(() => {
     var current_time = (new Date()).getTime();
-    if(promiseData['vest_starttime'] < promiseData['vesting_endtime']) {
-      if (current_time < promiseData['vesting_endtime']) {
-        const leftDay = (Date.parse(promiseData["vesting_endtime"])) / 86400000;
+    if(Number(promiseData['vest_starttime']) < Number(promiseData['vesting_endtime'])) {
+      if (current_time < Number(promiseData['vesting_endtime'])*1000) {
+        const leftDay = ((promiseData["vesting_endtime"]*1000 - current_time) / 86400000).toFixed(0);
         setVestedtime(leftDay);
-        setvestingflag(false);
-      } else {  
         setvestingflag(true);
+      } else {  
+        setvestingflag(false);
       }
     }
   })

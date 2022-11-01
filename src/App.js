@@ -108,7 +108,7 @@ function App() {
         promises.push(await VestingPortal.getWithdrawable(account)); // withrawable cc token amount
         promises.push(await VestingPortal.getVested(account)); // unlocked cc token amount
         promises.push(await VestingPortal.getTGETime()); // vesting start_day
-        promises.push(await VestingPortal.getVestingEndTime()); // vesting start_day
+        promises.push(await VestingPortal.getVestingEndTime()); // vesting end_day
       }
 
       let temp = [];
@@ -150,6 +150,7 @@ function App() {
             .dividedBy(10 ** 18)
             .toFixed(2);
           promisedata["vest_starttime"] = new BigNumber(Number(temp[13])).toFixed(0);
+          promisedata["vesting_endtime"] = new BigNumber(Number(temp[14])).toFixed(0);
         } else {
           promisedata["avax_val"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
@@ -170,6 +171,7 @@ function App() {
           promisedata["vesting_endtime"] = new BigNumber(Number(temp[14])).toFixed(0);
         }
         setPromiseData(promisedata);
+        console.log("promisedata", promisedata)
         setPresaleStart(Number(presaleStart_));
         setIsEnded(!promisedata["is_active"]);
       });
