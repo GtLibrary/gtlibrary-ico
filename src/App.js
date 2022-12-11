@@ -18,9 +18,9 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 LoadingOverlay.propTypes = undefined;
 
-const ccoin_addr = "0xb69Eb9B4b2f6Bf74bdac743811e53183d03B15D8";
-const presale_addr = "0x52E8591967B6570803799a9fb59b68F406b7BceA";
-const vesting_addr = "0xF26205b01C87634B5439FB968B0e0cF45740b5Bc";
+const ccoin_addr = "0x8E331576a609DD31297bD607F763ea6Cee15098a";
+const presale_addr = "0x3542309e5AC2907963993A1763750C488d0D742B";
+const vesting_addr = "0x6814C165b9C32d04633A56b6B9B634B5d6b559a7";
 
 let CCOINPortal;
 let PresalePortal;
