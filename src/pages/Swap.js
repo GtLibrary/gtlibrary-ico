@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import LoadingOverlay from "react-loading-overlay";
-LoadingOverlay.propTypes = undefined;
 import "../styles/Swap.css";
+LoadingOverlay.propTypes = undefined;
 
 function Swap() {
   const [loading, setLoading] = useState(true);
