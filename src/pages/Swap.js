@@ -4,7 +4,7 @@ import "../styles/Swap.css";
 LoadingOverlay.propTypes = undefined;
 
 function Swap() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   return (
     <div id="swap">
       {loading && (
