@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { ProgressBar } from "react-bootstrap";
+import { useWeb3React } from "@web3-react/core";
 import BigNumber from "bignumber.js";
 import { toast } from "react-toastify";
 
 const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
+  const { account } = useWeb3React();
   const [fromAmount, setFromAmount] = useState(0);
   const [toAmount, setToAmount] = useState(0);
   const [rate, setRate] = useState(0.0);
@@ -82,7 +84,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
             <ProgressBar
               label={
                 promiseData["total_token"] === undefined &&
-                promiseData["sold_token"] == undefined
+                promiseData["sold_token"] === undefined
                   ? "0%"
                   : `${progress(
                       Number(promiseData["sold_token"]),
@@ -90,8 +92,8 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
                     )}%`
               }
               now={
-                promiseData["sold_token"] == undefined &&
-                promiseData["total_token"] == undefined
+                promiseData["sold_token"] === undefined &&
+                promiseData["total_token"] === undefined
                   ? 0
                   : progress(
                       Number(promiseData["sold_token"]),
@@ -126,6 +128,8 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
               type="number"
               placeholder="0.0"
               value={fromAmount}
+              disabled = { account ? false: true }
+              readOnly={ account ? false: true }
               onChange={(e) => {
                 setToAmount(
                   Number(
@@ -177,6 +181,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 4,
               })}
+              readOnly={ account ? false: true }
               onChange={(e) => {
                 setFromAmount(
                   Number(
