@@ -171,7 +171,6 @@ function App() {
           promisedata["vesting_endtime"] = new BigNumber(Number(temp[14])).toFixed(0);
         }
         setPromiseData(promisedata);
-        console.log("promisedata", promisedata)
         setPresaleStart(Number(presaleStart_));
         setIsEnded(!promisedata["is_active"]);
       });

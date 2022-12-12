@@ -4,7 +4,7 @@ import "../styles/Swap.css";
 LoadingOverlay.propTypes = undefined;
 
 function Swap() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   return (
     <div id="swap">
       {loading && (
@@ -40,7 +40,7 @@ function Swap() {
           src="https://app.bogged.finance/avax/swap?tokenIn=0xB09FE1613fE03E7361319d2a43eDc17422f36B09&tokenOut=AVAX&embed=1&theme=dark"
           height="780px"
           width="100%"
-          onLoad={setLoading(false)}
+          onLoad={() => setLoading(false)}
           style={{ marginTop: "40px" }}
         ></iframe>
       </div>
