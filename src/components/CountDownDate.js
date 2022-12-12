@@ -42,7 +42,7 @@ const CountDownDate = ({seconds}) => {
                     <div className="time-title font-nulshock fs-12">Hours</div>
                 </div>
                 <div className="time-spacer">
-                    <img src='time-divider.png'></img>
+                    <img src='time-divider.png' alt='divider'></img>
                 </div>
                 <div className="time-item">
                     <div className="time-area">
@@ -51,7 +51,7 @@ const CountDownDate = ({seconds}) => {
                     <div className="time-title font-nulshock fs-12">Minutes</div>
                 </div> 
                 <div className="time-spacer">
-                    <img src='time-divider.png'></img>
+                    <img src='time-divider.png' alt='divider'></img>
                 </div>
                 <div className="time-item">
                     <div className="time-area">
