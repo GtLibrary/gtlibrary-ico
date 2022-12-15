@@ -50,7 +50,7 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
           <div className="rightsidebar">
             <div className="flex-column alignCenter rightsidebar-content">
               <div className="">
-                <div className="progress-section font-non-nulshock t-grey2 fs-20">
+                <div className="progress-section font-non-nulshock t-white fs-20">
                   <div className="progress-title">
                     <p>Claim Progress</p>
                     <p>

@@ -34,9 +34,9 @@ const RightSideBar = ({
   return (
     <div className="rightsidebar">
       {!presaleStart || isEnded ? (
-        <button className="private-button font-nulshock fs-14">PRIVATE</button>
+        <button className="private-button  fs-14">PRIVATE</button>
       ) : (
-        <button className="live-button font-nulshock fs-14">LIVE</button>
+        <button className="live-button  fs-14">LIVE</button>
       )}
 
       <div className="flex-column alignCenter rightsidebar-content">
@@ -52,21 +52,21 @@ const RightSideBar = ({
           <>
             {(!presaleStart && !isEnded) ? (
               <>
-                <div className="font-nulshock fs-20">
-                  <span className="font-nulshock t-white">
-                    <span className="font-nulshock">
+                <div className=" fs-20">
+                  <span className=" t-white">
+                    <span className="">
                       Presale {" "}
                       {!presaleStart ? (
-                        <span className="font-nulshock">starts</span>
+                        <span className="">starts</span>
                       ) : (
-                        <span className="font-nulshock">ends</span>
+                        <span className="">ends</span>
                       )}{" "}
                       at
                     </span>{" "}
                     {!presaleStart ? (
-                      <span className="font-nulshock t-white">{promiseData["start_day"]}</span>
+                      <span className=" t-white">{promiseData["start_day"]}</span>
                     ) : (
-                      <span className="font-nulshock t-white">
+                      <span className=" t-white">
                         {promiseData["end_day"]}
                       </span>
                     )}
@@ -77,7 +77,9 @@ const RightSideBar = ({
                 />
               </>
             ) : (
-              <div></div>
+              <div>        
+                <Purchase promiseData={promiseData} leftDays={leftDays} buy_CCOIN={buy_CCOIN} isEnded={isEnded} />
+              </div>
             )}
           </>
         )}

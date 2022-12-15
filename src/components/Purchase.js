@@ -61,12 +61,12 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
           </div>
         )}
 
-        <div className="progress-section font-non-nulshock t-grey2 fs-20">
+        <div className="progress-section font-non-nulshock t-white fs-20">
           <div className="progress-title">
             <p>Progress</p>
             <p>
               {promiseData["total_token"] === undefined &&
-              promiseData["sold_token"] == undefined
+              promiseData["sold_token"] === undefined
                 ? "0/0"
                 : Number(promiseData["sold_token"]).toLocaleString(undefined, {
                     minimumFractionDigits: 0,
@@ -128,7 +128,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
               type="number"
               placeholder="0.0"
               value={fromAmount}
-              disabled = { account ? false: true }
+              disabled = { (account && !isEnded) ? false: true }
               readOnly={ account ? false: true }
               onChange={(e) => {
                 setToAmount(
@@ -165,7 +165,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
           </div>
         </div>
         <div className="mt-20 mb-20">
-          <img alt="arrow" src="blue-arrow.png" />
+          <img alt="arrow" src="yellow-arrow.png" />
         </div>
         <div className="to-container">
           <div className="available-title font-non-nulshock t-grey2 fs-20">
@@ -181,7 +181,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
                 minimumFractionDigits: 0,
                 maximumFractionDigits: 4,
               })}
-              readOnly={ account ? false: true }
+              readOnly={ (account && !isEnded) ? false: true }
               onChange={(e) => {
                 setFromAmount(
                   Number(
@@ -200,7 +200,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
             </div>
           </div>
         </div>
-        <div className="ccoin-price-section font-non-nulshock t-grey2 fs-20">
+        <div className="ccoin-price-section font-non-nulshock t-white fs-20">
           <p>Price</p>
           <div className="ccoin-price-title">
             {rate === 0 ? (
@@ -244,7 +244,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
           ) : (
             (!isEnded ? (
               <button
-                className="big-order-button font-non-nulshock fs-30"
+                className="big-order-button13 font-non-nulshock fs-30"
                 onClick={clickBuy}
               >
                 Complete Order

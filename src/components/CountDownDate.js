@@ -30,34 +30,34 @@ const CountDownDate = ({seconds}) => {
             <div className="lock-timer mb-20">
                 <div className="time-item">
                     <div className="time-area">
-                        <div className="time-content font-nulshock fs-30">{timeDays}</div>
+                        <div className="time-content  fs-30">{timeDays}</div>
                     </div>
-                    <div className="time-title font-nulshock fs-12">Days</div>
+                    <div className="time-title  fs-12">Days</div>
                 </div>
                 <div className="time-spacer"></div>        
                 <div className="time-item">
                     <div className="time-area">
-                        <div className="time-content font-nulshock fs-30">{timeHours}</div>
+                        <div className="time-content  fs-30">{timeHours}</div>
                     </div>
-                    <div className="time-title font-nulshock fs-12">Hours</div>
+                    <div className="time-title  fs-12">Hours</div>
                 </div>
                 <div className="time-spacer">
                     <img src='time-divider.png' alt='divider'></img>
                 </div>
                 <div className="time-item">
                     <div className="time-area">
-                        <div className="time-content font-nulshock fs-30">{timeMinutes}</div>
+                        <div className="time-content  fs-30">{timeMinutes}</div>
                     </div>
-                    <div className="time-title font-nulshock fs-12">Minutes</div>
+                    <div className="time-title  fs-12">Minutes</div>
                 </div> 
                 <div className="time-spacer">
                     <img src='time-divider.png' alt='divider'></img>
                 </div>
                 <div className="time-item">
                     <div className="time-area">
-                        <div className="time-content font-nulshock fs-30">{timeSeconds}</div>
+                        <div className="time-content  fs-30">{timeSeconds}</div>
                     </div>
-                    <div className="time-title font-nulshock fs-12">Seconds</div>
+                    <div className="time-title  fs-12">Seconds</div>
                 </div>                 
             </div>
         </>
