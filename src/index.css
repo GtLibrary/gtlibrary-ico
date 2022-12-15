@@ -63,6 +63,7 @@ table {
 
 .cursorPointer {
 	cursor: pointer;
+	margin-right: 5px;
 }
 
 .bt-1 {
