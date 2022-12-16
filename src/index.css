@@ -13,16 +13,6 @@ footer, header, hgroup, menu, nav, section {
 	font-family: "Leander";
 	src: url('../public/font/Leander.ttf');
 }
-
-body {
-	font-family: "Crimson Text";
-	background-image: url('../public/ico-background.png');
-	background-size: cover;
-	background-repeat: no-repeat;
-}
-body {
-	line-height: 1;
-}
 ol, ul {
 	list-style: none;
 }

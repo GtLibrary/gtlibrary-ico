@@ -41,7 +41,7 @@ function Swap() {
           height="780px"
           width="100%"
           onLoad={() => setLoading(false)}
-          style={{ marginTop: "40px" }}
+          style={{ marginTop: "40px", border: "none" }}
         ></iframe>
       </div>
     </div>
