@@ -47,7 +47,7 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
     <>
       <div className="main-content">
         <div className="container-flex marginAuto card-content">
-          <div className="rightsidebar">
+          <div className="rightsidebar vesting-area">
             <div className="flex-column alignCenter rightsidebar-content">
               <div className="">
                 <div className="progress-section font-non-nulshock t-white fs-20">
@@ -105,7 +105,7 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
                   </div>
                 </div>
                 <div className="from-container">
-                  <div className="balance-title font-non-nulshock t-grey2 fs-20">
+                  <div className="balance-title font-non-nulshock t-grey2 fs-30">
                     <p>Withrawable CCoin amount</p>
                   </div>
                   <div className="avax-container">
@@ -147,7 +147,7 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
                     </button>
                   ) : (
                     <button
-                      className="big-order-button font-non-nulshock"
+                      className="big-order-button font-non-nulshock fs-30"
                       onClick={claimCCoin}
                     >
                       Claim CCoin

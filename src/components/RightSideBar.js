@@ -33,7 +33,7 @@ const RightSideBar = ({
 
   return (
     <div className="right-area">
-      <div className={account? "rightsidebar": "rightsidebar dropfilter"}>
+      <div className={account? "rightsidebar rightside-effect": "rightsidebar dropfilter"}>
         {!presaleStart || isEnded ? (
           <button className="private-button  fs-14">PRIVATE</button>
         ) : (

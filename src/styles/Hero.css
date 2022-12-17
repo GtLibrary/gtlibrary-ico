@@ -238,6 +238,10 @@ a.font-dark {
   align-items: center;
   justify-content: center;
 }
+
+.vesting-area {
+  padding: 40px;
+}
 .dropfilter {
   filter: blur(3px);
 }
@@ -485,6 +489,7 @@ a.font-dark {
   cursor: pointer;
   color: white;
   font-weight: 500;
+  font-family: "Crimson Text";
   line-height: 35px;
   padding: 16px 0;
   width: 100%;
@@ -783,9 +788,11 @@ a.font-dark {
     width: 80%;
   }
   .rightsidebar {
-    width: 100%;
     padding: 60px 20px;
     margin: 50px 0 100px 0;
+  }
+  .rightside-effect {
+    width: 100%;
   }
   .right-contentarea {
     padding: 20px;
