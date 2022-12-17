@@ -38,7 +38,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
 
   return (
     <>
-      <div className="">
+      <div className="right-contentarea">
         {isEnded ? (
           (Date.parse(new Date()) < Date.parse(promiseData['start_day'])) ? 
           (
@@ -195,7 +195,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
               }}
             />
             <div className="ccoin-section font-non-nulshock t-grey3 fs-25">
-              <img alt="coin" className="ccoin-img" src="c-coin-logo.png" />
+              <img alt="coin" className="ccoin-img" src="c-coin-small.png" />
               <p className="ccoin-letter ml-20">CC</p>
             </div>
           </div>

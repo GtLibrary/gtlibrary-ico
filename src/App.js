@@ -186,9 +186,9 @@ function App() {
             style={{
               background: "#00000055",
               width: "100%",
-              height: "102%",
+              height: "100%",
               zIndex: "1000",
-              position: "absolute",
+              position: "fixed",
               top: 0,
             }}
           >
