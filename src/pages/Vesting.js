@@ -105,12 +105,12 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
                   </div>
                 </div>
                 <div className="from-container">
-                  <div className="balance-title font-non-nulshock t-grey2 fs-30">
+                  <div className="balance-title font-non-nulshock t-white fs-20">
                     <p>Withrawable CCoin amount</p>
                   </div>
                   <div className="avax-container">
                     <input
-                      className="input-value-section t-grey2 fs-30"
+                      className="input-value-section t-white fs-30"
                       type="number"
                       placeholder="0.0"
                       value={
