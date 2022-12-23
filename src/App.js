@@ -109,6 +109,8 @@ function App() {
         promises.push(await VestingPortal.getVested(account)); // unlocked cc token amount
         promises.push(await VestingPortal.getTGETime()); // vesting start_day
         promises.push(await VestingPortal.getVestingEndTime()); // vesting end_day
+        promises.push(await CCOINPortal.dexCCRate());  // dexCCRate
+        promises.push(await CCOINPortal.dexXMTSPRate())  // dexXMTSPRate
       }
 
       let temp = [];
@@ -151,6 +153,12 @@ function App() {
             .toFixed(2);
           promisedata["vest_starttime"] = new BigNumber(Number(temp[13])).toFixed(0);
           promisedata["vesting_endtime"] = new BigNumber(Number(temp[14])).toFixed(0);
+          promisedata["dexCCRate"] = new BigNumber(Number(temp[15]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["dexXMTSPRate"] = new BigNumber(Number(temp[16]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
         } else {
           promisedata["avax_val"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
@@ -169,6 +177,12 @@ function App() {
             .toFixed(2);
           promisedata["vest_starttime"] = new BigNumber(Number(temp[13])).toFixed(0);
           promisedata["vesting_endtime"] = new BigNumber(Number(temp[14])).toFixed(0);
+          promisedata["dexCCRate"] = new BigNumber(Number(temp[15]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["dexXMTSPRate"] = new BigNumber(Number(temp[16]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
         }
         setPromiseData(promisedata);
         setPresaleStart(Number(presaleStart_));
@@ -223,7 +237,12 @@ function App() {
                 />
               }
             />
-            <Route path="/swap" element={<Swap />} />
+            <Route path="/swap" element={<Swap 
+              account={account}
+              promiseData={promiseData}
+              presaleStart={presaleStart}
+              isEnded={isEnded}
+            />} />
             <Route
               path="/vesting"
               element={
