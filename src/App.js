@@ -50,6 +50,7 @@ function App() {
   };
 
   const claimCC = async (amount) => {
+    console.log("ASDfasdfasdfasd")
     const {ethereum} = window;
     if (ethereum) {
       const provider = new ethers.providers.Web3Provider(ethereum);
@@ -110,7 +111,8 @@ function App() {
         promises.push(await VestingPortal.getTGETime()); // vesting start_day
         promises.push(await VestingPortal.getVestingEndTime()); // vesting end_day
         promises.push(await CCOINPortal.dexCCRate());  // dexCCRate
-        promises.push(await CCOINPortal.dexXMTSPRate())  // dexXMTSPRate
+        promises.push(await CCOINPortal.dexXMTSPRate());  // dexXMTSPRate
+        promises.push(await VestingPortal.getLocked(account)); //get Locked CCoin
       }
 
       let temp = [];
@@ -159,6 +161,9 @@ function App() {
           promisedata["dexXMTSPRate"] = new BigNumber(Number(temp[16]))
             .dividedBy(10 ** 18)
             .toFixed(2);
+          promisedata["locked_token"] = new BigNumber(Number(temp[17]))
+          .dividedBy(10 ** 18)
+          .toFixed(2);
         } else {
           promisedata["avax_val"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
@@ -183,6 +188,9 @@ function App() {
           promisedata["dexXMTSPRate"] = new BigNumber(Number(temp[16]))
             .dividedBy(10 ** 18)
             .toFixed(2);
+          promisedata["locked_token"] = new BigNumber(Number(0))
+          .dividedBy(10 ** 18)
+          .toFixed(2);
         }
         setPromiseData(promisedata);
         setPresaleStart(Number(presaleStart_));

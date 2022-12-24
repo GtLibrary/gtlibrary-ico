@@ -139,7 +139,7 @@ const Header = ({
             <div className="ml-5">
               <p className="ccoin-title t-gray fs-14">Locked $CC</p>
               <p className="ccoin-value t-white fs-18">
-                {promiseData["vested_token"] ? promiseData["vested_token"] : 0}
+                {promiseData["locked_token"] ? promiseData["locked_token"] : 0}
               </p>
             </div>
           </div>
