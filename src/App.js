@@ -113,6 +113,8 @@ function App() {
         promises.push(await CCOINPortal.dexCCRate());  // dexCCRate
         promises.push(await CCOINPortal.dexXMTSPRate());  // dexXMTSPRate
         promises.push(await VestingPortal.getLocked(account)); //get Locked CCoin
+        promises.push(await CCOINPortal.maxCCOut());
+        promises.push(await CCOINPortal.maxXOut());
       }
 
       let temp = [];
@@ -162,8 +164,14 @@ function App() {
             .dividedBy(10 ** 18)
             .toFixed(2);
           promisedata["locked_token"] = new BigNumber(Number(temp[17]))
-          .dividedBy(10 ** 18)
-          .toFixed(2);
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["maxccout"] = new BigNumber(Number(temp[18]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["maxxout"] = new BigNumber(Number(temp[19]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
         } else {
           promisedata["avax_val"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
@@ -189,8 +197,14 @@ function App() {
             .dividedBy(10 ** 18)
             .toFixed(2);
           promisedata["locked_token"] = new BigNumber(Number(0))
-          .dividedBy(10 ** 18)
-          .toFixed(2);
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["maxccout"] = new BigNumber(Number(temp[18]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
+          promisedata["maxxout"] = new BigNumber(Number(temp[19]))
+            .dividedBy(10 ** 18)
+            .toFixed(2);
         }
         setPromiseData(promisedata);
         setPresaleStart(Number(presaleStart_));

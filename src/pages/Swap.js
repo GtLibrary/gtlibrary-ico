@@ -10,8 +10,10 @@ function Swap({
   isEnded,
 }) {
   const [loading, setLoading] = useState(true);
-  const [rate, setRate] = useState(0.0);
+  const [rate, setRate] = useState(0);
   const [swap, SetSwap] = useState(true);
+  const [avaxamount, setAvaxamount] = useState(0);
+  const [ccoinamount, setCcoinamount] = useState(0);
   return (
     <div id="swap">
       <div className="swap-content">
@@ -27,10 +29,19 @@ function Swap({
                     className="input-value-section t-grey2 fs-30"
                     type="number"
                     placeholder="0.0"
-                    value={0}
+                    value={avaxamount}
                     disabled = { (account && isEnded) ? false: true }
                     readOnly={ account ? false: true }
                     onChange={(e) => {
+                      setCcoinamount(
+                        Number(
+                          e.target.value * promiseData["dexXMTSPRate"]
+                        ).toLocaleString(undefined, {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 4,
+                        })
+                      );
+                      setAvaxamount(e.target.value);
                     }}
                   />
                   <div className="max-button-section">
@@ -59,10 +70,19 @@ function Swap({
                     className="input-value-section t-grey2 fs-30"
                     type="number"
                     placeholder="0.0"
-                    value={0}
+                    value={ccoinamount}
                     disabled = { (account && isEnded) ? false: true }
                     readOnly={ account ? false: true }
                     onChange={(e) => {
+                      setCcoinamount(e.target.value);
+                      setAvaxamount(
+                        Number(
+                          e.target.value * promiseData['dexCCRate']
+                        ).toLocaleString(undefined, {
+                          minimumFractionDigits: 0,
+                          maximumFractionDigits: 4,
+                        })
+                      );
                     }}
                   />
                   <div className="max-button-section">
@@ -88,17 +108,15 @@ function Swap({
             <div className="to-container">
               <div className="available-title font-non-nulshock t-grey2 fs-20">
                 <p></p>
-                <p>Balance: {promiseData["token_price"]}</p>
+                <p>Balance: {promiseData["dexXMTSPRate"]}</p>
               </div>
               <div className="ccoin-container">
                 <input
                   className="input-value-section t-grey2 fs-30"
                   type="number"
                   placeholder="0.0"
-                  value={0}
-                  readOnly={ (account && isEnded) ? false: true }
-                  onChange={(e) => {
-                  }}
+                  value={ccoinamount}
+                  readOnly={ true }
                 />
                 <div className="ccoin-section font-non-nulshock t-grey3 fs-25">
                   <img alt="avax" className="ccoin-img" src="c-coin-small.png" />
@@ -110,17 +128,15 @@ function Swap({
             <div className="to-container">
               <div className="available-title font-non-nulshock t-grey2 fs-20">
                 <p></p>
-                <p>Balance: {promiseData["token_price"]}</p>
+                <p>Balance: {promiseData["dexCCRate"]}</p>
               </div>
               <div className="ccoin-container">
                 <input
                   className="input-value-section t-grey2 fs-30"
                   type="number"
                   placeholder="0.0"
-                  value={0}
-                  readOnly={ (account && isEnded) ? false: true }
-                  onChange={(e) => {
-                  }}
+                  value={avaxamount}
+                  readOnly={ true }
                 />
                 <div className="ccoin-section font-non-nulshock t-grey3 fs-25">
                   <img alt="coin" className="avax-img" src="avax.png" />
@@ -152,8 +168,26 @@ function Swap({
             </div>
           </div>
           <div className="buy-sell-btn-area">
-            <button className="btn btn-buy-ccoin fs-30" disabled={!swap}>Swap CCoin</button>
-            <button className="btn btn-buy-avax fs-30" disabled={swap}>Swap Avax</button>
+            { swap ? (
+              ((avaxamount < promiseData["avax_val"])) ? (
+                <button className="btn btn-buy-ccoin fs-30" disabled={!swap}>Swap to CCoin</button>
+              ) : (
+                avaxamount > promiseData["maxxout"] ?
+                <button className="btn btn-buy-ccoin fs-30" disabled={true}>Avax Max Out</button> :
+                <button className="btn btn-buy-ccoin fs-30" disabled={true}>Insufficient Balance</button>
+              )
+            ) : (
+              <button className="btn btn-buy-ccoin fs-30" disabled={!swap}>Swap to CCoin</button>
+            )}
+            { !swap ? (ccoinamount < promiseData["ccoin_token"] ? (
+              <button className="btn btn-buy-avax fs-30" disabled={swap}>Swap to Avax</button>
+            ): (
+              ccoinamount > promiseData["maxccout"] ? 
+              <button className="btn btn-buy-avax fs-30" disabled={true}>CCoin Max Out</button> :
+              <button className="btn btn-buy-avax fs-30" disabled={true}>Insufficient Balance</button>
+            )) : (
+              <button className="btn btn-buy-avax fs-30" disabled={swap}>Swap to Avax</button>
+            )}
           </div>
         </div>
       </div>

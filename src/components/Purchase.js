@@ -231,11 +231,11 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
         <div>
           {fromAmount > promiseData["avax_val"] * 1 ? (
             <button className="insufficient-button font-non-nulshock fs-30">
-              Insufficient balance
+              Insufficient Balance
             </button>
           ) : fromAmount <= 0 ? (
             <button className="amount-button font-non-nulshock fs-30">
-              Enter an amount
+              Enter an Amount
             </button>
           ) : fromAmount < 0.001 ? (
             <button className="min-price-button font-non-nulshock fs-30">
