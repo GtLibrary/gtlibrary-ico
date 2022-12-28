@@ -134,10 +134,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
                 setToAmount(
                   Number(
                     e.target.value * promiseData["token_price"]
-                  ).toLocaleString(undefined, {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 4,
-                  })
+                  )
                 );
                 setFromAmount(e.target.value);
               }}
@@ -186,10 +183,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
                 setFromAmount(
                   Number(
                     e.target.value / promiseData["token_price"]
-                  ).toLocaleString(undefined, {
-                    minimumFractionDigits: 0,
-                    maximumFractionDigits: 4,
-                  })
+                  )
                 );
                 setToAmount(e.target.value);
               }}

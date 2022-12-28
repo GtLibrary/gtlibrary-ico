@@ -9,7 +9,6 @@ function Swap({
   presaleStart,
   isEnded,
 }) {
-  const [loading, setLoading] = useState(true);
   const [rate, setRate] = useState(0);
   const [swap, SetSwap] = useState(true);
   const [avaxamount, setAvaxamount] = useState(0);
@@ -36,10 +35,7 @@ function Swap({
                       setCcoinamount(
                         Number(
                           e.target.value * promiseData["dexXMTSPRate"]
-                        ).toLocaleString(undefined, {
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 4,
-                        })
+                        )
                       );
                       setAvaxamount(e.target.value);
                     }}
@@ -48,6 +44,13 @@ function Swap({
                     <button
                       className="max-button"
                       onClick={() => {
+                        let maxavax_val = promiseData["avax_val"] < promiseData["maxxout"] ? promiseData["avax_val"] : promiseData["maxxout"];
+                        setCcoinamount(
+                          Number(
+                            maxavax_val * promiseData["dexXMTSPRate"]
+                          )
+                        );
+                        setAvaxamount(maxavax_val);
                       }}
                     >
                       MAX
@@ -63,7 +66,7 @@ function Swap({
               <div className="from-container">
                 <div className="balance-title font-non-nulshock t-grey2 fs-20">
                   <p></p>
-                  <p>Available: {promiseData["avax_val"]}</p>
+                  <p>Available: {promiseData["ccoin_token"] < promiseData["maxxccout"] ? promiseData["ccoin_token"] : promiseData["maxccout"]}</p>
                 </div>
                 <div className="avax-container">
                   <input
@@ -78,10 +81,7 @@ function Swap({
                       setAvaxamount(
                         Number(
                           e.target.value * promiseData['dexCCRate']
-                        ).toLocaleString(undefined, {
-                          minimumFractionDigits: 0,
-                          maximumFractionDigits: 4,
-                        })
+                        )
                       );
                     }}
                   />
@@ -89,6 +89,13 @@ function Swap({
                     <button
                       className="max-button"
                       onClick={() => {
+                        let maxcc_val = promiseData["ccoin_token"] < promiseData["maxxccout"] ? promiseData["ccoin_token"] : promiseData["maxccout"];
+                        setAvaxamount(
+                          Number(
+                            maxcc_val * promiseData["dexCCRate"]
+                          )
+                        );
+                        setCcoinamount(maxcc_val);
                       }}
                     >
                       MAX
@@ -149,11 +156,10 @@ function Swap({
             <p>Price</p>
             <div className="ccoin-price-title">
               {rate === 0 ? (
-                <p>{promiseData["dexCCRate"]} CC per AVAX</p>
+                <p> 1 CC per {promiseData["dexCCRate"]} AVAX</p>
               ) : (
                 <p>
-                  {promiseData["dexXMTSPRate"]}
-                  AVAX per CC
+                  1 AVAX per {promiseData["dexXMTSPRate"]} CC
                 </p>
               )}
               <img
@@ -169,7 +175,7 @@ function Swap({
           </div>
           <div className="buy-sell-btn-area">
             { swap ? (
-              ((avaxamount < promiseData["avax_val"])) ? (
+              ((avaxamount <= promiseData["avax_val"])) ? (
                 <button className="btn btn-buy-ccoin fs-30" disabled={!swap}>Swap to CCoin</button>
               ) : (
                 avaxamount > promiseData["maxxout"] ?
@@ -179,7 +185,9 @@ function Swap({
             ) : (
               <button className="btn btn-buy-ccoin fs-30" disabled={!swap}>Swap to CCoin</button>
             )}
-            { !swap ? (ccoinamount < promiseData["ccoin_token"] ? (
+            { !swap ? (ccoinamount <= promiseData["ccoin_token"] ? (
+              ccoinamount > promiseData["maxccout"] ? 
+              <button className="btn btn-buy-avax fs-30" disabled={true}>CCoin Max Out</button> :
               <button className="btn btn-buy-avax fs-30" disabled={swap}>Swap to Avax</button>
             ): (
               ccoinamount > promiseData["maxccout"] ? 
