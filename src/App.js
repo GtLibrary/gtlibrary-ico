@@ -49,8 +49,39 @@ function App() {
     }
   };
 
+  const swapToAvax = async (amount) => {
+    const { ethereum } = window;
+
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      CCOINPortal = new ethers.Contract(ccoin_addr, ccoin_abi, signer);
+      let swaptoavax = await CCOINPortal.dexCCIn({
+        value: ethers.utils.parseEther(String(amount)),
+      });
+      await swaptoavax.wait();
+
+      await getContractData();
+    }
+  };
+
+  const swapToCC = async (amount) => {
+    const { ethereum } = window;
+
+    if (ethereum) {
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      CCOINPortal = new ethers.Contract(ccoin_addr, ccoin_abi, signer);
+      let swaptocc = await CCOINPortal.dexXMTSPIn({
+        value: ethers.utils.parseEther(String(amount)),
+      });
+      await swaptocc.wait();
+
+      await getContractData();
+    }
+  };
+
   const claimCC = async (amount) => {
-    console.log("ASDfasdfasdfasd")
     const {ethereum} = window;
     if (ethereum) {
       const provider = new ethers.providers.Web3Provider(ethereum);
@@ -259,12 +290,16 @@ function App() {
                 />
               }
             />
-            <Route path="/swap" element={<Swap 
-              account={account}
-              promiseData={promiseData}
-              presaleStart={presaleStart}
-              isEnded={isEnded}
-            />} />
+            <Route path="/swap" element={
+              <Swap 
+                account={account}
+                promiseData={promiseData}
+                isEnded={isEnded}
+                swapToAvax={swapToAvax}
+                swapToCC={swapToCC}
+              />
+              } 
+            />
             <Route
               path="/vesting"
               element={

@@ -6,8 +6,9 @@ LoadingOverlay.propTypes = undefined;
 function Swap({
   account,
   promiseData,
-  presaleStart,
   isEnded,
+  swapToAvax,
+  swapToCC
 }) {
   const [rate, setRate] = useState(0);
   const [swap, SetSwap] = useState(true);
@@ -176,25 +177,25 @@ function Swap({
           <div className="buy-sell-btn-area">
             { swap ? (
               ((avaxamount <= promiseData["avax_val"])) ? (
-                <button className="btn btn-buy-ccoin fs-30" disabled={!swap}>Swap to CCoin</button>
+                <button className="btn btn-buy-ccoin fs-30" disabled={!swap} onClick={() => swapToAvax(ccoinamount)}>Swap to CCoin</button>
               ) : (
                 avaxamount > promiseData["maxxout"] ?
                 <button className="btn btn-buy-ccoin fs-30" disabled={true}>Avax Max Out</button> :
                 <button className="btn btn-buy-ccoin fs-30" disabled={true}>Insufficient Balance</button>
               )
             ) : (
-              <button className="btn btn-buy-ccoin fs-30" disabled={!swap}>Swap to CCoin</button>
+              <button className="btn btn-buy-ccoin fs-30" disabled={!swap} onClick={() => swapToAvax(ccoinamount)}>Swap to CCoin</button>
             )}
             { !swap ? (ccoinamount <= promiseData["ccoin_token"] ? (
               ccoinamount > promiseData["maxccout"] ? 
               <button className="btn btn-buy-avax fs-30" disabled={true}>CCoin Max Out</button> :
-              <button className="btn btn-buy-avax fs-30" disabled={swap}>Swap to Avax</button>
+              <button className="btn btn-buy-avax fs-30" disabled={swap} onClick={() => swapToCC(avaxamount)}>Swap to Avax</button>
             ): (
               ccoinamount > promiseData["maxccout"] ? 
               <button className="btn btn-buy-avax fs-30" disabled={true}>CCoin Max Out</button> :
               <button className="btn btn-buy-avax fs-30" disabled={true}>Insufficient Balance</button>
             )) : (
-              <button className="btn btn-buy-avax fs-30" disabled={swap}>Swap to Avax</button>
+              <button className="btn btn-buy-avax fs-30" disabled={swap} onClick={() => swapToCC(avaxamount)}>Swap to Avax</button>
             )}
           </div>
         </div>
