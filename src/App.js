@@ -56,10 +56,13 @@ function App() {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       CCOINPortal = new ethers.Contract(ccoin_addr, ccoin_abi, signer);
-      let swaptoavax = await CCOINPortal.dexCCIn({
-        value: ethers.utils.parseEther(String(amount)),
-      });
-      await swaptoavax.wait();
+      try {
+        await CCOINPortal.approve(account, ethers.utils.parseEther(String(amount)));
+        let swaptoavax = await CCOINPortal.dexCCIn(ethers.utils.parseEther(String(amount)));
+        await swaptoavax.wait();
+      } catch (error) {
+
+      }
 
       await getContractData();
     }
@@ -72,10 +75,14 @@ function App() {
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
       CCOINPortal = new ethers.Contract(ccoin_addr, ccoin_abi, signer);
-      let swaptocc = await CCOINPortal.dexXMTSPIn({
-        value: ethers.utils.parseEther(String(amount)),
-      });
-      await swaptocc.wait();
+      try {
+        let swaptocc = await CCOINPortal.dexXMTSPIn({
+          value: ethers.utils.parseEther(String(amount)),
+        });
+        await swaptocc.wait();
+      } catch (error) {
+        
+      }
 
       await getContractData();
     }
