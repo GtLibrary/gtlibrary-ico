@@ -238,7 +238,7 @@ const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
           ) : (
             (!isEnded ? (
               <button
-                className="big-order-button13 font-non-nulshock fs-30"
+                className="big-order-button font-non-nulshock fs-30"
                 onClick={clickBuy}
               >
                 Complete Order
