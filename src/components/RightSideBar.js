@@ -24,7 +24,7 @@ const RightSideBar = ({
     const leftDay =
       (Date.parse(promiseData["end_day"]) - (Date.now())) / 86400000;
 
-    if (leftDay > 0 && leftDay < 30) {
+    if (leftDay > 0) {
       return Number(leftDay.toFixed(0)) + 1;
     } else {
       return 1;

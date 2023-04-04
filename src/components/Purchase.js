@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ProgressBar } from "react-bootstrap";
 import { useWeb3React } from "@web3-react/core";
-import BigNumber from "bignumber.js";
 import { toast } from "react-toastify";
 
 const Purchase = ({ promiseData, leftDays, buy_CCOIN, isEnded }) => {
