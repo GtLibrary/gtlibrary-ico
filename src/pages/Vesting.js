@@ -19,6 +19,7 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
   };
 
   useEffect(() => {
+    console.log(Number(promiseData["vesting_endtime"]) > Number(Date.now()))
     var current_time = (new Date()).getTime();
     if(Number(promiseData['vest_starttime']) < Number(promiseData['vesting_endtime'])) {
       if (current_time < Number(promiseData['vesting_endtime'])*1000) {
@@ -43,6 +44,17 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
     setFromAmount(0);
   };
 
+  const leftDays = async () => {
+    
+    const leftDay =
+      (Date.parse(promiseData["vesting_endtime"]) - (Date.now())) / 86400000;
+    if (leftDay > 0) {
+      return Number(leftDay.toFixed(0)) + 1;
+    } else {
+      return 1;
+    }
+  }
+
   return (
     <>
       <div className="main-content">
@@ -50,6 +62,19 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
           <div className="rightsidebar vesting-area">
             <div className="flex-column alignCenter rightsidebar-content">
               <div className="">
+                {(Number(promiseData["vesting_endtime"]) < Number(Date.now())) ? (
+                  <div className="calendar-section">
+                  <img alt="calendar" src="calendar.png" />
+                    <p className="font-non-nulshock fs-20 ml-10">Withdraw ended</p>
+                  </div>
+                ) : (
+                  <div className="calendar-section">
+                    <img alt="calendar" src="calendar.png" />
+                    <p className="calendar-title font-non-nulshock fs-20 ml-10">
+                      {leftDays()} Days until withdraw
+                    </p>
+                  </div>
+                )}
                 <div className="progress-section font-non-nulshock t-white fs-20">
                   <div className="progress-title">
                     <p>Claim Progress</p>
