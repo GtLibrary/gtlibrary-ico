@@ -19,7 +19,6 @@ const Vesting = ({ account, promiseData, presaleStart, isEnded, claimCC }) => {
   };
 
   useEffect(() => {
-    console.log(Number(promiseData["vesting_endtime"]) > Number(Date.now()))
     var current_time = (new Date()).getTime();
     if(Number(promiseData['vest_starttime']) < Number(promiseData['vesting_endtime'])) {
       if (current_time < Number(promiseData['vesting_endtime'])*1000) {
