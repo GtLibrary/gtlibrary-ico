@@ -48,8 +48,10 @@ const Hero = props => {
   }
 
   useEffect(() => {
-    
-      if (!chainId && isConfirm) {
+    console.log("error ===", error)
+      if (isConfirm && error) {
+        if (error && (error.name === "UnsupportedChainIdError" || error.name === "t")) {
+
           const { ethereum } = window;
           (async () => {
               try {
@@ -106,7 +108,8 @@ const Hero = props => {
               }
               activate(injected);
           })();
-          isConfirm = false;
+        }
+        isConfirm = false;
       }
   }, [account, error, active, chainId, activate ]);
 
