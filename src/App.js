@@ -163,10 +163,10 @@ function App() {
         let promisedata = [];
         promisedata["total_token"] = new BigNumber(Number(temp[0]))
           .dividedBy(10 ** 18)
-          .toFixed(2);
+          .toFixed(4);
         promisedata["sold_token"] = new BigNumber(Number(temp[1]))
           .dividedBy(10 ** 18)
-          .toFixed(2);
+          .toFixed(4);
         let presaleStart_ = temp[2];
         promisedata["start_day"] = new Date(presaleStart_ * 1000).toUTCString();
         let presaleEnd_ = presaleStart_ * 1000 + temp[3] * 86400 * 1000;
@@ -180,69 +180,69 @@ function App() {
         if (account) {
           promisedata["avax_val"] = new BigNumber(Number(temp[8]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["ccoin_token"] = new BigNumber(Number(temp[9]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["vested_token"] = new BigNumber(Number(temp[10]['totalAmount']))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["withrawable_token"] = new BigNumber(Number(temp[11]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["unlocked_token"] = new BigNumber(Number(temp[12]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["vest_starttime"] = new BigNumber(Number(temp[13])).toFixed(0);
           promisedata["vesting_endtime"] = new BigNumber(Number(temp[14])).toFixed(0);
           promisedata["dexCCRate"] = new BigNumber(Number(temp[15]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["dexXMTSPRate"] = new BigNumber(Number(temp[16]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["locked_token"] = new BigNumber(Number(temp[17]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["maxccout"] = new BigNumber(Number(temp[18]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["maxxout"] = new BigNumber(Number(temp[19]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
         } else {
           promisedata["avax_val"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["ccoin_token"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["vested_token"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["withrawable_token"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["unlocked_token"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["vest_starttime"] = new BigNumber(Number(temp[13])).toFixed(0);
           promisedata["vesting_endtime"] = new BigNumber(Number(temp[14])).toFixed(0);
           promisedata["dexCCRate"] = new BigNumber(Number(temp[15]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["dexXMTSPRate"] = new BigNumber(Number(temp[16]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["locked_token"] = new BigNumber(Number(0))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["maxccout"] = new BigNumber(Number(temp[18]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
           promisedata["maxxout"] = new BigNumber(Number(temp[19]))
             .dividedBy(10 ** 18)
-            .toFixed(2);
+            .toFixed(4);
         }
         setPromiseData(promisedata);
         setPresaleStart(Number(presaleStart_));
